@@ -1,9 +1,10 @@
 # ignore everything
-*
+/*
+/proposal/*
 
 # but not these files
 !.gitignore
-!*.tex
+!**.tex
 !*.pdf
 !proposal/*.tex
 !proposal/*.pdf
