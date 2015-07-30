@@ -184,9 +184,14 @@ We will measure the correlation between dynamical mass measured from the velocit
 	\1 Redshift Catalog
 		\2 A redshift solution is determined for each object by cross-correlating \citep{Tonry1979} each of the spectra with galaxy template spectra from the SDSS using the \textsc{xcsao} task in the \textsc{iraf} \textsc{rvsao} package \citep{Kurtz1992}. See Figure~\ref{fig:spectrum} for an example of a fitted spectrum.
 	\1 Photometric Catalog
-		\2 Each galaxy detection has a corresponding SDSS detection providing photometric information in addition to the measured redshifts. 
+		\2 Each galaxy detection has a corresponding SDSS detection providing photometric information in addition to the measured redshifts. See Figure~\ref{fig:mosaic} for an example of the spectroscopic targets matched to the photometric detections.
+		\begin{SCfigure} 
+			\includegraphics[width=0.6\textwidth]{./figures/c203p83+41p0_mosaic.eps} 
+			\caption{SDSS \sdssr\ image of cluster c203p83+41p0. The symbols show the position of observed galaxies. Blue circles indicate galaxies with $Q=0$ or $Q=1$ spectroscopic redshifts, red squares indicate galaxies where a redshift could not be reliably determined, and the orange diamond corresponds to galaxies with pre-existing redshifts from the SDSS.}
+			\label{fig:mosaic} 
+		\end{SCfigure}
 	\1 Data Quality Control
-		\2 For each redshift computed a ``Q'' or quality flag is assigned. $Q=0$ implies high-confidence redshifts, clearly determined by at least two obvious features. See Figure~\ref{fig:spectrum}.
+		\2 For each redshift computed a ``Q'' or quality flag is assigned. $Q=0$ implies high-confidence redshifts, clearly determined by at least two obvious features. See Figure~\ref{fig:spectrum}. Spectra with only a single strong feature (\eg, [\ion{O}{2}] emission) but lie near the correct redshift of the cluster are assigned $Q=1$ and redshifts resulting from enigmatic features are assigned $Q=2$. For the determination of cluster properties we only consider $Q=0$ and $Q=1$ quality flags.
 \end{outline}
 
 \subsection{Results}
@@ -196,21 +201,21 @@ We will measure the correlation between dynamical mass measured from the velocit
 		\2 For galaxy clusters with fewer than 20 $Q=0$ redshifts we employ the method outlined in \cite{Connelly2012,Wilman2005} where we assume an initial velocity dispersion of 500\kms\ and apply both redshift and spatial limits. The number of total redshifts, $Q=0$ redshifts, and confirmed cluster members are given in Table~\ref{tbl:cluster members}.
 		\begin{table*}
 			\centering
-			\caption{Observed clusters with the total number of sources detected, the number of corresponding $Q=0$ redshifts and the number of confirmed cluster members after the confirmation process has been completed.}
+			\caption{Observed clusters with the total number of sources detected, the number of corresponding $Q=0$ redshifts and the number of confirmed cluster members after the confirmation process has been completed. Clusters missing data have technical problems under current investigation.}
 			\begin{tabular}{ccccccc}
 				\hline
 				Cluster & Sources & Q=0 & Members & $z_{c}$ & $\sigma$ (\kms) & $M_{200}$ ($10^{15}$ \Msol) \\
 				\hline \hline
-				c250p08+46p7 & 62 & 34 & 23 & 0.2 & 1044\err{196}{131} & 1.75\err{0.6}{0.47} \\
-				c203p83+41p0 & 68 & 39 & 26 & 0.2 & 1364\err{241}{159} & 3.89\err{1.2}{0.96} \\
-				c210p2+02p8 & 64 & 33 & 6 & 0.2 & 569\err{298}{176} & 0.28\err{2.1}{2.0} \\
-				c234p2+24p4 & 38 & 24 & 19 & 0.2 & 883\err{188}{91} & 1.06\err{0.40}{0.23} \\
-				c260p61+32p13 & 61 & 42 & 26 & 0.2 & 881\err{156}{93} & 1.05\err{0.34}{0.23} \\
-				c16p23+0p06& 42 & 24 & 17 & 0.2 & 1215\err{228}{137} & 2.69\err{0.91}{0.64} \\
-				c328p33+0p19 & 28 & 18 & 15 & 0.2 & 396\err{120}{60} & 0.096\err{5.0}{3.2} \\
-				c319p70+0p56 & 47 & 24 & 20 & 0.2 & 729\err{142}{94} & 0.58\err{2.04}{1.60} \\
-				XMMXCSJ124425.9+164758.0 & 24 & 12 & 6 & 0.2 & 348\err{216}{109} & 0.06\err{5.56}{4.73} \\
-				XMMXCSJ125650.2+254803.2 & 15 & 7 & ... & ... & ... & ... \\
+		c250p08+46p7 & 62 & 34 & 23 & 0.2256 & 1044\err{196}{131} & 1.75\err{0.6}{0.47} \\
+		c203p83+41p0 & 68 & 39 & 26 & 0.2346 & 1364\err{241}{159} & 3.89\err{1.2}{0.96} \\
+		c210p2+02p8 & 64 & 33 & 6 & ... & ... & ... \\
+		c234p2+24p4 & 38 & 24 & 19 & 0.2265 & 883\err{188}{91} & 1.06\err{0.40}{0.23} \\
+		c260p61+32p13 & 61 & 42 & 26 & 0.2256 & 881\err{156}{93} & 1.05\err{0.34}{0.23} \\
+		c16p23+0p06& 42 & 24 & 17 & 0.2720 & 1215\err{228}{137} & 2.69\err{0.91}{0.64} \\
+		c328p33+0p19 & 28 & 18 & 15 & 0.2165 & 396\err{120}{60} & 0.096\err{5.0}{3.2} \\
+		c319p70+0p56 & 47 & 24 & 20 & 0.2760 & 729\err{142}{94} & 0.58\err{2.04}{1.60} \\
+		XMMXCSJ124425.9+164758.0 & 24 & 12 & 6 & 0.2349 & 348\err{216}{109} & 0.06\err{5.56}{4.73} \\
+		XMMXCSJ125650.2+254803.2 & 15 & 7 & ... & ... & ... & ... \\
 		 		\hline
 			\end{tabular}
 			\label{tbl:cluster members}
