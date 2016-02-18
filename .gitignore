@@ -1,6 +1,7 @@
 # ignore everything
 /*
 /proposal/*
+/thesisTemplate/*
 
 # but not these files
 !.gitignore
