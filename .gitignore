@@ -9,3 +9,8 @@
 !proposal/*.tex
 !proposal/*.pdf
 !proposal/figures/*.eps
+
+# not the thesis template
+!thesisTemplate/*.tex
+!thesisTemplate/*.sty
+!thesisTemplate/*.pdf
