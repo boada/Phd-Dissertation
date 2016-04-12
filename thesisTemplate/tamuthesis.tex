@@ -30,8 +30,20 @@
 \usepackage{amsmath} 
 \usepackage{pdflscape} 
 \usepackage[hang,flushmargin]{footmisc}
+\usepackage{color}
+\usepackage{multirow}
 
 \input{commands.tex}
+\newcommand{\editorial}[1]{\textcolor{red}{#1}}
+\DeclareRobustCommand{\ion}[2]{%
+\relax\ifmmode
+\ifx\testbx\f@series
+{\mathbf{#1\,\mathsc{#2}}}\else
+{\mathrm{#1\,\mathsc{#2}}}\fi
+\else\textup{#1\,{\mdseries\textsc{#2}}}%
+\fi}
+\newcommand{\multic}[2]{\multicolumn{#1}{c}{#2}}
+\newcommand{\rottext}[2]{\multirow{#1}{*}{\rotatebox[origin=c]{90}{#2}}}
 
 \long
 \def\symbolfootnote[#1]#2 {
@@ -94,8 +106,6 @@
 \include{section1} 
 \include{section2} 
 \include{section3}
-
-fix spacing in bibliography, if any...
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \let\oldbibitem\bibitem 

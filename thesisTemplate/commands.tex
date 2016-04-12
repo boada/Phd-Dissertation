@@ -80,6 +80,7 @@
 \newcommand{\ujy}{\hbox{$\mu$Jy}}
 \newcommand{\degree}{\hbox{$^\circ$}}
 \newcommand{\degsq}{\hbox{degree$^2$}}
+\newcommand{\arcminsq}{\hbox{arcmin$^2$}}
 \newcommand{\um}{\hbox{$\mu$m}}
 
 %%% Math %%%
@@ -94,17 +95,16 @@
 \newcommand{\infinity}{\hbox{$\infty$}}
 \newcommand{\err}[2]{$^{+#1}_{-#2}$}
 
-
 %%% General %%%
 \newcommand{\etal}{et al.}
 \newcommand{\eg}{e.g.}
 \newcommand{\ie}{i.e.}
 \newcommand{\cf}{cf.}
-\newcommand{\ion}[2]{#1$\;${\small\uppercase\expandafter{\romannumeral #2\relax}}}
+\def\ion#1#2{#1$\;${\small\rm\@Roman{#2}}\relax}
 \newcommand{\mybullet}{\noindent$\bullet$}
 \newcommand{\uit}{\textit{UIT}}
 \newcommand{\nd}{\nodata}
 %\newcommand{\cmodel}{\hbox{\tt cmodel}}
-\newcommand{\bs}{\hbox{$\!\!\!\!$}}
+%\newcommand{\bs}{\hbox{$\!\!\!\!$}}
 \newcommand{\todo}[1]{{\tt #1}}
 \newcommand{\citeeg}[1]{(\eg, \citealt{#1})}
