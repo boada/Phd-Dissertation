@@ -11,11 +11,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%                           SECTION II
+%%%                           SECTION I
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
-\chapter[Chapter1]{\uppercase {Chapter1}\symbolfootnote[1]{Reprinted with permission from ``Introduction: The Importance of Research'' by AUTHOR et al., 2015. The Astrophysical Journal, Volume XYZ, Issue X, article id. XY, XY pp., Copyright 20XX by the American Astronomical Society.} }
+\chapter[\uppercase{Simulated Performance, Mass Recovery, and Limits to Cosmology}]{\uppercase{Simulated Performance, Mass Recovery, and Limits to Cosmology}\symbolfootnote[1]{Reprinted with permission from ``Introduction: The Importance of Research'' by AUTHOR et al., 2015. The Astrophysical Journal, Volume XYZ, Issue X, article id. XY, XY pp., Copyright 20XX by the American Astronomical Society.} }
 \renewcommand*{\thefootnote}{\arabic{footnote}}
 \setcounter{footnote}{0}
 
@@ -38,10 +38,11 @@ While a large portion of the $\sim10^6$ interloping lower redshift galaxies will
 
 It is unclear how a blind spectroscopic survey with an IFU will effect the recovery of galaxy cluster dynamical properties. Unlike many previous large cluster surveys \citeeg{Milvang-Jensen2008, Robotham2011, Sifon2015} which use multi-object spectrographs, the Visible Integral-Field Replicable Unit Spectrograph (VIRUS; \citealt{Hill2012}) used by HETDEX samples the sky in a uniform but sparse way which could excluded member galaxies which would otherwise be included. Secondly, it is not straightforward to use spectroscopic redshifts predominately from emission-line galaxies to interpret the kinematic and dynamical states of the clusters.
 
-\begin{figure*} 
-	\includegraphics[width=0.9\textwidth]{figures1/oii_sdss.pdf} 
+\begin{figure}
+	\centering 
+	\includegraphics[width=\textwidth]{figures1/oii_sdss.pdf} 
 	\caption{\textit{Left}: CMD of 503,113 $z<0.2$ galaxies take from the SDSS DR12 where the shading scales with the density of points. The two colored boxes show regions containing potential catalog galaxies. \textit{Right}: Probability histograms of the Log \hbox{[\ion{O}{ii}]} luminosity for the SDSS galaxies located in the two highlighted regions on the right. The \hbox{[\ion{O}{ii}]} luminosities are assigned to catalog galaxies from slice sampling the probability histogram and converted to fluxes using the redshift of each galaxy.} \label{fig: oii sdss} 
-\end{figure*}
+\end{figure}
 
 This work plans to address these concerns in the following ways. We create and evaluate a HETDEX like selection ``function'' of galaxies over a similarly large portion of the sky and use well adopted techniques to recover the dynamical properties, such as velocity dispersion and cluster mass. In addition to standard techniques of cluster mass estimation, we investigate probability based and machine learning based approaches of cluster mass prediction. We compare these results to a series of targeted galaxy cluster observations, where each member galaxy is assumed to be observed. Each of these observations use realistic uncertainties from galaxy magnitude and line-flux limits. These strategies will better allow future work to predict the number and types of galaxy clusters which should be observed with VIRUS during both the HETDEX survey portion and through targeted follow up observations.
 
@@ -79,7 +80,8 @@ Figure~\ref{fig: oii sdss} illustrates this process. The numbered boxes in the l
 where $D_L$ is the luminosity distance \citeeg{Hogg1999}.
 
 \subsection{HETDEX}\label{sec: hetdex}
-\begin{figure} 
+\begin{figure}
+	\centering 
 	\includegraphics[width=\textwidth]{figures1/pointings.pdf} 
 	\caption{Representative observation tiling scheme for the HETDEX $16' \times 16'$ pointings. Each turquoise square represents the position of a single VIRUS IFU, and the dashed octagons approximate the size of a single observation. Inside each IFU HETDEX will achieve near complete coverage through three dithers. See the text for more details.} \label{fig: ifu layout} 
 \end{figure}
@@ -146,10 +148,11 @@ As with any predictive analysis it is important to test the model on data that t
 \subsubsection{Probability Based}\label{sec:probability method}
 For internal consistency between this and the ML based method we use 70\% of the clusters to establish a conditional probability density of $P(M_{200c} | \vec{x})$ which we then use as the cluster mass probability density for the remaining clusters with similar features. In this way we, ``train'' the probability density using the existing simulated data, and apply it to the ``test'' sample (the remaining 30\% of the data not used as the training set).
 
-\begin{figure*} 
+\begin{figure}
+	\centering 
 	\includegraphics[width=\textwidth]{figures1/prob_example.pdf} 
 	\caption{Illustration of the probability based cluster mass prediction method. \emph{Left}: The two dimensional posterior probability distribution of LOSVD and redshift used to determine the correct cluster mass. The pink and green rectangles show the locations of two example galaxies used to create the conditional probability distribution of the mass, $P(M_{200c}|\vec{x})$. \emph{Right}: The conditional probability distribution of the cluster mass for the two example galaxies. See text for a complete description.} \label{fig: probability corner} 
-\end{figure*}
+\end{figure}
 
 In this method, the cluster masses are predicted using the method illustrated in Figure~\ref{fig: probability corner}. The left panel shows the two dimensional (joint probability) projections of the posterior probability distributions of the feature training data. The conditional probability of the cluster mass $P(M_{200c}|\vec{x}= \{ x_1,x_2,...\})$ (shown in the right panel) is determined by selecting a region in the joint probability distribution. For example, using the LOSVD and redshift features we create $P(M_{200c}|\vec{x})$ for two test galaxies, shown by the green and pink boxes in the left panel of Figure~\ref{fig: probability corner}. These example galaxies have features $\vec{x} = \{\sigma=200\, \kms,z=0.16\}$ and $\vec{x} = \{\sigma=400\, \kms,z=0.36\}$. We select all galaxies in our training sample with similar features and create the conditional probability distributions shown in the right panel.
 
@@ -176,14 +179,15 @@ The ML method generates ``prediction intervals'' between observed and derived qu
 
 The prediction intervals here are based on the general method of quantile regression forests \citep{Meinshausen2006}. The general idea is that all response variables are recorded, not just the mean. Then the prediction can be returned as the full conditional probability distribution of all responses, which allows us to generate the prediction intervals. We report the 68\% prediction interval as the square root of the second moment of the full conditional probability distribution.
 
-\section{RESULTS}\label{sec:results}
+\section{Results}\label{sec:results}
 Here we explore the cluster member recovery rate and mass estimates for the two observing strategies, Targeted, and Survey. Targeted observations are direct observations of a cluster where each cluster member galaxy, above the detection thresholds (see Section \ref{sec: observations}), is observed. Survey observations mimic the HETDEX observation strategy such that no cluster is directly observed, and only the cluster member galaxies above the detection threshold and within an IFU (see Figure \ref{fig: ifu layout}) are observed.  We discuss the accuracy of cluster dynamical mass derived from both the power law scaling relation (see Equation \ref{eq:power law}) and through the probability and ML methods. We also compare the results from the Targeted and Survey observing strategies to the results of a ``Perfect'' survey, where the redshift of each galaxy, regardless of observational limits, in the cluster is known perfectly.
 
 \subsection{Recovery of Cluster Members}
-\begin{figure*}
+\begin{figure}
+	\centering
 	\includegraphics[width=0.8\textwidth]{figures1/recovery.pdf} 
 	\caption{Recovery fractions ($N_{obs}/N_{True}$) of cluster member galaxies as a function of redshift and true cluster mass for the Targeted and Survey observing strategies. We have applied HETDEX-like observational limits on the cluster galaxy detection, and require at least five galaxies to be detected for a cluster to be recovered. The shading indicates the mean recovery fraction for clusters within each small bin of redshift and cluster mass. We find a significant decrease in the recovery of galaxies with increasing redshift. This leads to lower recovery fractions of high mass clusters as many only exist at larger redshifts. The significant decline in the number of galaxies observed with the Survey strategy is due to gaps in the VIRUS IFU, where the galaxies are missed.} \label{fig: recovery} 
-\end{figure*}
+\end{figure}
 
 As discussed in Section \ref{sec: observations}, the observational constraints place limits on the total number of clusters member galaxies expected to be recovered. Knowing these limits will provide important information for potential future follow up or Targeted observations. We recover 14,189 clusters with Targeted observations and 1,760 clusters with Survey observations, where we require a detection of $N_{obs} >=5$ galaxies for a cluster to be detected. Figure \ref{fig: recovery} shows the recovery fraction of member galaxies, the number of observed galaxies divided by the number of actual galaxies ($N_{obs}/N_{True}$), as a function of both redshift and cluster mass. As expected, the Targeted observing strategy where the individual clusters are targeted through several dithers to ensure near complete coverage, performs significantly better than the Survey observing strategy across all redshifts and cluster masses. With Perfect knowledge, recovery fraction would be unity across all redshifts and cluster masses where clusters exist.
 
@@ -196,10 +200,11 @@ For the Survey observations, the right panel of Figure~\ref{fig: recovery}, all 
 The recovery fractions in Figure~\ref{fig: recovery} are an outcome of the magnitude limit and \hbox{[\ion{O}{ii}]} line-flux limit of the survey. For Perfect observations, we would detect all members across all cluster masses and redshifts. Recovery fractions of clusters located a the low end of the redshift distribution will improve the most by follow-up targeted observations. But generally, the number of members observed (and subsequently more accurate cluster mass estimates) will benefit from follow-up observations regardless of the redshift. So follow-up observations should be tailored to the specific science goal.
 
 \subsection{Mass estimates}
-\begin{figure*} 
+\begin{figure}
+	\centering 
 	\includegraphics[width=\textwidth]{figures1/Probcomparison.pdf} 
 	\caption{Mass predictions for the power law scaling relation (Equation~\ref{eq:power law}) and the probability based technique with different input features as a function of true cluster mass. The bottom row of panels shows the fractional error (Equation~\ref{eq: fractional error}) also as a function of true cluster mass. The solid black line shows the 1:1 relation, in both panels, between $M_{200c}$ and $M_{pred}$. The orange, dash-dotted line is the median predicted mass for perfect observations. The solid, purple line is the median predicted mass for the Targeted observing, and the green, dashed line is the median recovered mass for the HETDEX-like observations. The shaded regions represent the 68\% scatter around the median values.} \label{fig:Probability comparison} 
-\end{figure*}
+\end{figure}
 
 In this section we discuss the accuracy of the recovered masses compared to the true cluster mass from a set of observations. We report on three methods, the power law based approach (Eq. \ref{eq:power law}), the probability based approach (Section \ref{sec:probability method}) and the ML based method (Section \ref{sec:machine learning method}). For each method we consider observations with Perfect knowledge, Targeted observations and Survey observations. The cluster masses presented here are recovered using the best possible conditions, where we have perfect knowledge of the cluster membership. In reality, the mass recovery levels presented in this section represent an upper bound (the best) on the accuracy achievable through this method.
 
@@ -217,10 +222,11 @@ We begin with the Perfect knowledge observations. These observations are of the 
 
 For the Targeted and Survey observations the power law predicted cluster masses give $\mu_{bias} =0.135\pm{0.003}$ dex, $\sigma_{bias} = 0.370\pm{0.002}$ and $\mu_{bias} =0.148\pm{0.008}$ dex, $\sigma_{bias} = 0.324\pm{0.006}$ , respectively. So for the clusters that we detect with Survey observations, we obtain similar levels of accuracy as to the Targeted observations, on the average. This does not mean that the Survey observations cannot be improved by Targeted observations. In fact, when comparing only the galaxies which overlap between the two samples the bias and scatter of the Targeted observations is significantly decreased as more cluster member galaxies are detected, better sampling the LOSVD PDF. The Targeted observations performs similarly on the average because many lower mass clusters are included in the sample, increasing the bias of the overall sample.
 
-\begin{figure*} 
+\begin{figure}
+	\centering 
 	\includegraphics[width=\textwidth]{figures1/MLcomparison.pdf} 
 	\caption{Mass predictions for the power law scaling relation (Equation~\ref{eq:power law}) and the ML based technique with different input features as a function of true cluster mass. The bottom row of panels shows the fractional error (Equation~\ref{eq: fractional error}) also as a function of true cluster mass. The solid black line shows the 1:1 relation. The orange, dash-dotted line is the median predicted mass for perfect observations. The solid, purple line is the median predicted mass for the Targeted observing, and the green, dashed line is the median recovered mass for the HETDEX-like observations. The shaded regions represent the 68\% scatter around the median values.} \label{fig: ML comparison} 
-\end{figure*}
+\end{figure}
 
 In both Figures \ref{fig:Probability comparison} and \ref{fig: ML comparison}, we show the predicted ($M_{pred}$) versus true ($M_{200c}$) cluster masses for each of the two observing strategries. The lower panels show the fractional cluster mass error defined as: 
 \begin{equation}\label{eq: fractional error}
@@ -231,115 +237,144 @@ where $M_{pred}$ is the predicted cluster mass and $M_{200c}$ is the true cluste
 Qualitatively, the top panels of Figures \ref{fig:Probability comparison} and \ref{fig: ML comparison} show that both the probability based and ML based methods out perform (closer to the black 1:1 relation) the power law method when taking advantage of other cluster observables ($z$, $N_{gal}$, etc.). Generally, we find that the single parameter probability and ML methods perform significantly poorer than the power law method, especially at low cluster masses. When combined with the cluster redshift, the predicted cluster masses are improved, because the range of cluster masses decrease with increasing redshift (see Figure~\ref{fig: recovery}). The final addition of the number of observed galaxies, $N_{gal}$ acts as a type of richness estimate, and significantly improves both the bias and the amount of scatter in the predicted masses.
 
 \begin{landscape}
-\begin{table}
-\centering
-\small
-\caption{Mean bias (Eqn.~\ref{eqn: bias}) for different bins of predicted cluster mass. This table shows the bias in the predicted cluster mass for the perfect (top section), Targeted (middle section), and Survey (bottom section) observations in different predicted mass bins. The different mass recovery strategies are given in the leftmost column. It can be used to understand how the predicted cluster mass differs from the true cluster masses. Positive numbers indicate the predicted cluster mass over estimates when compared to the true cluster mass.}
-\begin{tabular}{cccccccc} 
-		&& \multic{6}{Bins -- Log $M_{pred}$} \\
-		\cline{3-8} 
-		\multicolumn{2}{c}{Method} & $12.5-13$ & $13-13.5$ & $13.5-14$ & $14-14.5$ & $14.5-15$ & $15-15.5$ \\
+	\begin{table}
+	\centering
+	\caption{Mean bias (Eqn.~\ref{eqn: bias}) for different bins of predicted cluster mass. This table shows the bias in the predicted cluster mass for the perfect (top section), Targeted (middle section), and Survey (bottom section) observations in different predicted mass bins. The different mass recovery strategies are given in the leftmost column. It can be used to understand how the predicted cluster mass differs from the true cluster masses. Positive numbers indicate the predicted cluster mass over estimates when compared to the true cluster mass.}
+	\begin{tabular}{cccccccc} 
+			&& \multic{6}{Bins -- Log $M_{pred}$} \\
+			\cline{3-8} 
+			\multicolumn{2}{c}{Method} & $12.5-13$ & $13-13.5$ & $13.5-14$ & $14-14.5$ & $14.5-15$ & $15-15.5$ \\
+			\hline
+			&& \multic{6}{Perfect Observations} \\
+			\hline
+			\multicolumn{2}{c}{Power Law} & $0.23\pm{0.007}$ & $0.16\pm{0.003}$ & $0.11\pm{0.002}$ & $0.07\pm{0.004}$ & $0.02\pm{0.011}$ & $-0.07\pm{0.045}$ \\
+			\hline 
+			\rottext{3}{Prob} &$\sigma$ & $0.32\pm{0.005}$ & $0.16\pm{0.003}$ & $0.10\pm{0.002}$ & $0.07\pm{0.004}$ & $0.05\pm{0.012}$ & $-0.18\pm{0.078}$ \\
+			&$\sigma, z$ & $0.17\pm{0.005}$ & $0.01\pm{0.003}$ & $-0.06\pm{0.002}$ & $-0.11\pm{0.015}$ & $-0.14\pm{0.012}$ & $-0.38\pm{0.159}$ \\
+			&$\sigma, z, N_{gal}$ & $0.04\pm{0.009}$ & $-0.02\pm{0.002}$ & $-0.02\pm{0.002}$ & $-0.05\pm{0.014}$ & $-0.22\pm{0.126}$ & \nd \\
+			\hline
+			\rottext{4}{ML} &$\sigma$ & $0.14\pm{0.006}$ & $-0.01\pm{0.003}$ & $-0.07\pm{0.003}$ & $-0.09\pm{0.005}$ & $-0.11\pm{0.014}$ & $-0.17\pm{0.090}$ \\
+			&$\sigma, z$ & $0.12\pm{0.005}$ & $-0.01\pm{0.003}$ & $-0.06\pm{0.003}$ & $-0.08\pm{0.004}$ & $-0.11\pm{0.012}$ & $-0.24\pm{0.076}$ \\
+			&$\sigma, N_{gal}$ & $0.04\pm{0.004}$ & $-0.02\pm{0.002}$ & $-0.02\pm{0.002}$ & $-0.02\pm{0.002}$ & $-0.02\pm{0.006}$ & $-0.08\pm{0.041}$ \\
+			&$\sigma, z, N_{gal}$ & $0.04\pm{0.003}$ & $-0.02\pm{0.002}$ & $-0.02\pm{0.001}$ & $-0.02\pm{0.002}$ & $-0.02\pm{0.005}$ & $-0.08\pm{0.043}$ \\
+			\hline
+			
+			&& \multic{6}{Targeted Observations} \\
+			\hline
+			\multicolumn{2}{c}{Power Law} & $0.20\pm{0.008}$ & $0.13\pm{0.005}$ & $0.10\pm{0.005}$ & $0.09\pm{0.007}$ & $0.02\pm{0.014}$ & $-0.08\pm{0.043}$ \\
+			\hline
+			\rottext{3}{Prob} &$\sigma$ & $0.40\pm{0.005}$ & $0.17\pm{0.003}$ & $0.02\pm{0.004}$ & $-0.08\pm{0.006}$ & $-0.19\pm{0.015}$ & $-0.35\pm{0.122}$ \\
+			&$\sigma, z$ & $0.25\pm{0.005}$ & $0.08\pm{0.003}$ & $-0.06\pm{0.003}$ & $-0.21\pm{0.015}$ & $-0.35\pm{0.016}$ & $-0.59\pm{0.145}$ \\
+			&$\sigma, z, N_{gal}$ & $0.13\pm{0.004}$ & $0.01\pm{0.003}$ & $-0.05\pm{0.003}$ & $-0.12\pm{0.018}$ & $-0.44\pm{0.177}$ & \nd \\
+			\hline
+			\rottext{4}{ML} &$\sigma$ & $0.26\pm{0.006}$ & $0.02\pm{0.004}$ & $-0.13\pm{0.005}$ & $-0.24\pm{0.008}$ & $-0.35\pm{0.022}$ & $-0.39\pm{0.054}$ \\
+			&$\sigma, z$ & $0.18\pm{0.005}$ & $0.03\pm{0.003}$ & $-0.10\pm{0.004}$ & $-0.21\pm{0.006}$ & $-0.31\pm{0.021}$ & $-0.33\pm{0.063}$ \\
+			&$\sigma, N_{gal}$ & $0.22\pm{0.005}$ & $0.00\pm{0.004}$ & $-0.13\pm{0.004}$ & $-0.16\pm{0.007}$ & $-0.13\pm{0.014}$ & $-0.19\pm{0.059}$ \\
+			&$\sigma, z, N_{gal}$ & $0.09\pm{0.004}$ & $-0.01\pm{0.002}$ & $-0.05\pm{0.002}$ & $-0.08\pm{0.004}$ & $-0.08\pm{0.010}$ & $-0.19\pm{0.060}$ \\
+			\hline
+			
+		\end{tabular}
+	\label{tbl:mass bias}
+	\end{table}
+\end{landscape}			
+\addtocounter{table}{-1}			
+\begin{landscape}
+	\begin{table}
+	\centering
+	\caption{Continued}
+	\begin{tabular}{cccccccc} 
+			&& \multic{6}{Bins -- Log $M_{pred}$} \\
+			\cline{3-8} 
+			\multicolumn{2}{c}{Method} & $12.5-13$ & $13-13.5$ & $13.5-14$ & $14-14.5$ & $14.5-15$ & $15-15.5$ \\
+			\hline
+			&& \multic{6}{Survey Observations} \\
+			\hline
+			\multicolumn{2}{c}{Power Law} & $0.17\pm{0.068}$ & $0.17\pm{0.023}$ & $0.13\pm{0.014}$ & $0.07\pm{0.014}$ & $0.01\pm{0.022}$ & $-0.09\pm{0.062}$ \\
+			\hline
+			\rottext{3}{Prob} & $\sigma$ & $0.77\pm{0.030}$ & $0.42\pm{0.011}$ & $0.18\pm{0.008}$ & $-0.03\pm{0.009}$ & $-0.18\pm{0.017}$ & $-0.39\pm{0.102}$ \\
+			&$\sigma, z$ & $0.61\pm{0.036}$ & $0.29\pm{0.012}$ & $0.08\pm{0.008}$ & $-0.11\pm{0.009}$ & $-0.38\pm{0.118}$ & $-0.48\pm{0.127}$ \\
+			&$\sigma, z, N_{gal}$ & $0.48\pm{0.038}$ & $0.18\pm{0.011}$ & $0.02\pm{0.007}$ & $-0.08\pm{0.008}$ & $-0.50\pm{0.203}$ & \nd \\
+			\hline
+			\rottext{4}{ML} &$\sigma$ & $0.57\pm{0.046}$ & $0.24\pm{0.015}$ & $0.02\pm{0.012}$ & $-0.17\pm{0.013}$ & $-0.28\pm{0.027}$ & $-0.27\pm{0.117}$ \\
+			&$\sigma, z$ & $0.48\pm{0.034}$ & $0.20\pm{0.013}$ & $0.03\pm{0.009}$ & $-0.13\pm{0.011}$ & $-0.26\pm{0.021}$ & $-0.31\pm{0.110}$ \\
+			&$\sigma, N_{gal}$ & $0.55\pm{0.043}$ & $0.22\pm{0.013}$ & $0.00\pm{0.010}$ & $-0.14\pm{0.011}$ & $-0.22\pm{0.025}$ & $-0.19\pm{0.079}$ \\
+			&$\sigma, z, N_{gal}$ & $0.42\pm{0.029}$ & $0.13\pm{0.011}$ & $-0.00\pm{0.007}$ & $-0.08\pm{0.008}$ & $-0.14\pm{0.016}$ & $-0.19\pm{0.079}$ \\
 		\hline
-		&& \multic{6}{Perfect Observations} \\
-		\hline
-		\multicolumn{2}{c}{Power Law} & $0.23\pm{0.007}$ & $0.16\pm{0.003}$ & $0.11\pm{0.002}$ & $0.07\pm{0.004}$ & $0.02\pm{0.011}$ & $-0.07\pm{0.045}$ \\
-		\hline 
-		\rottext{3}{Prob} &$\sigma$ & $0.32\pm{0.005}$ & $0.16\pm{0.003}$ & $0.10\pm{0.002}$ & $0.07\pm{0.004}$ & $0.05\pm{0.012}$ & $-0.18\pm{0.078}$ \\
-		&$\sigma, z$ & $0.17\pm{0.005}$ & $0.01\pm{0.003}$ & $-0.06\pm{0.002}$ & $-0.11\pm{0.015}$ & $-0.14\pm{0.012}$ & $-0.38\pm{0.159}$ \\
-		&$\sigma, z, N_{gal}$ & $0.04\pm{0.009}$ & $-0.02\pm{0.002}$ & $-0.02\pm{0.002}$ & $-0.05\pm{0.014}$ & $-0.22\pm{0.126}$ & \nd \\
-		\hline
-		\rottext{4}{ML} &$\sigma$ & $0.14\pm{0.006}$ & $-0.01\pm{0.003}$ & $-0.07\pm{0.003}$ & $-0.09\pm{0.005}$ & $-0.11\pm{0.014}$ & $-0.17\pm{0.090}$ \\
-		&$\sigma, z$ & $0.12\pm{0.005}$ & $-0.01\pm{0.003}$ & $-0.06\pm{0.003}$ & $-0.08\pm{0.004}$ & $-0.11\pm{0.012}$ & $-0.24\pm{0.076}$ \\
-		&$\sigma, N_{gal}$ & $0.04\pm{0.004}$ & $-0.02\pm{0.002}$ & $-0.02\pm{0.002}$ & $-0.02\pm{0.002}$ & $-0.02\pm{0.006}$ & $-0.08\pm{0.041}$ \\
-		&$\sigma, z, N_{gal}$ & $0.04\pm{0.003}$ & $-0.02\pm{0.002}$ & $-0.02\pm{0.001}$ & $-0.02\pm{0.002}$ & $-0.02\pm{0.005}$ & $-0.08\pm{0.043}$ \\
-		\hline
-		
-		&& \multic{6}{Targeted Observations} \\
-		\hline
-		\multicolumn{2}{c}{Power Law} & $0.20\pm{0.008}$ & $0.13\pm{0.005}$ & $0.10\pm{0.005}$ & $0.09\pm{0.007}$ & $0.02\pm{0.014}$ & $-0.08\pm{0.043}$ \\
-		\hline
-		\rottext{3}{Prob} &$\sigma$ & $0.40\pm{0.005}$ & $0.17\pm{0.003}$ & $0.02\pm{0.004}$ & $-0.08\pm{0.006}$ & $-0.19\pm{0.015}$ & $-0.35\pm{0.122}$ \\
-		&$\sigma, z$ & $0.25\pm{0.005}$ & $0.08\pm{0.003}$ & $-0.06\pm{0.003}$ & $-0.21\pm{0.015}$ & $-0.35\pm{0.016}$ & $-0.59\pm{0.145}$ \\
-		&$\sigma, z, N_{gal}$ & $0.13\pm{0.004}$ & $0.01\pm{0.003}$ & $-0.05\pm{0.003}$ & $-0.12\pm{0.018}$ & $-0.44\pm{0.177}$ & \nd \\
-		\hline
-		\rottext{4}{ML} &$\sigma$ & $0.26\pm{0.006}$ & $0.02\pm{0.004}$ & $-0.13\pm{0.005}$ & $-0.24\pm{0.008}$ & $-0.35\pm{0.022}$ & $-0.39\pm{0.054}$ \\
-		&$\sigma, z$ & $0.18\pm{0.005}$ & $0.03\pm{0.003}$ & $-0.10\pm{0.004}$ & $-0.21\pm{0.006}$ & $-0.31\pm{0.021}$ & $-0.33\pm{0.063}$ \\
-		&$\sigma, N_{gal}$ & $0.22\pm{0.005}$ & $0.00\pm{0.004}$ & $-0.13\pm{0.004}$ & $-0.16\pm{0.007}$ & $-0.13\pm{0.014}$ & $-0.19\pm{0.059}$ \\
-		&$\sigma, z, N_{gal}$ & $0.09\pm{0.004}$ & $-0.01\pm{0.002}$ & $-0.05\pm{0.002}$ & $-0.08\pm{0.004}$ & $-0.08\pm{0.010}$ & $-0.19\pm{0.060}$ \\
-		\hline
-		
-		&& \multic{6}{Survey Observations} \\
-		\hline
-		\multicolumn{2}{c}{Power Law} & $0.17\pm{0.068}$ & $0.17\pm{0.023}$ & $0.13\pm{0.014}$ & $0.07\pm{0.014}$ & $0.01\pm{0.022}$ & $-0.09\pm{0.062}$ \\
-		\hline
-		\rottext{3}{Prob} & $\sigma$ & $0.77\pm{0.030}$ & $0.42\pm{0.011}$ & $0.18\pm{0.008}$ & $-0.03\pm{0.009}$ & $-0.18\pm{0.017}$ & $-0.39\pm{0.102}$ \\
-		&$\sigma, z$ & $0.61\pm{0.036}$ & $0.29\pm{0.012}$ & $0.08\pm{0.008}$ & $-0.11\pm{0.009}$ & $-0.38\pm{0.118}$ & $-0.48\pm{0.127}$ \\
-		&$\sigma, z, N_{gal}$ & $0.48\pm{0.038}$ & $0.18\pm{0.011}$ & $0.02\pm{0.007}$ & $-0.08\pm{0.008}$ & $-0.50\pm{0.203}$ & \nd \\
-		\hline
-		\rottext{4}{ML} &$\sigma$ & $0.57\pm{0.046}$ & $0.24\pm{0.015}$ & $0.02\pm{0.012}$ & $-0.17\pm{0.013}$ & $-0.28\pm{0.027}$ & $-0.27\pm{0.117}$ \\
-		&$\sigma, z$ & $0.48\pm{0.034}$ & $0.20\pm{0.013}$ & $0.03\pm{0.009}$ & $-0.13\pm{0.011}$ & $-0.26\pm{0.021}$ & $-0.31\pm{0.110}$ \\
-		&$\sigma, N_{gal}$ & $0.55\pm{0.043}$ & $0.22\pm{0.013}$ & $0.00\pm{0.010}$ & $-0.14\pm{0.011}$ & $-0.22\pm{0.025}$ & $-0.19\pm{0.079}$ \\
-		&$\sigma, z, N_{gal}$ & $0.42\pm{0.029}$ & $0.13\pm{0.011}$ & $-0.00\pm{0.007}$ & $-0.08\pm{0.008}$ & $-0.14\pm{0.016}$ & $-0.19\pm{0.079}$ \\
-	\hline
-	\end{tabular}
-\label{tbl:mass bias}
-\end{table}
+		\end{tabular}
+	\label{tbl:mass bias}
+	\end{table}
 \end{landscape}
+
 
 We quantify the bias and scatter for all of the different cluster mass recovery strategies and observing methods in Table \ref{tbl:mass bias} and Table \ref{tbl:mass scatter}. It serves as a type of look up table for future cluster observations with HETDEX. The columns represent bins of predicted galaxy cluster mass and the individual values show the bias and scatter of the true cluster mass. The three horizontal sections represent Perfect, Targeted and Survey observations respectively. So, for example, if a cluster mass is predicted using the $\mathrm{ML}_{\sigma, z}$ method and Targeted observations to be Log M/\Msol\ $=13-13.5$, it is biased upward by $0.03\pm{0.003}$ dex and has a scatter of $0.24\pm0.009$ dex. 
 
-\begin{table*}
-\centering
-\caption{Scatter (Eqn.~\ref{eqn: scatter}) in cluster mass after bias correction for different bins of predicted cluster mass. This table shows the scatter in the predicted cluster mass for the perfect (top section), Targeted (middle section), and Survey (bottom section) observations in different predicted mass bins. The different mass recovery strategies are given in the leftmost column. It can be used to understand how the predicted cluster mass differs from the true cluster masses.}
-\begin{tabular}{cccccccc} 
-		&& \multic{6}{Bins -- Log $M_{pred}$} \\
-		\cline{3-8} 
-		\multicolumn{2}{c}{Method} & $12.5-13$ & $13-13.5$ & $13.5-14$ & $14-14.5$ & $14.5-15$ & $15-15.5$ \\
-		\hline 
-		&& \multic{6}{Perfect Observations} \\
-		\hline
-		\multicolumn{2}{c}{Power Law} & $0.34\pm{0.005}$ & $0.22\pm{0.002}$ & $0.16\pm{0.002}$ & $0.14\pm{0.003}$ & $0.14\pm{0.008}$ & $0.11\pm{0.040}$ \\
-		\hline 
-		\rottext{3}{Prob} &$\sigma$ & $0.26\pm{0.004}$ & $0.20\pm{0.002}$ & $0.16\pm{0.002}$ & $0.14\pm{0.003}$ & $0.16\pm{0.009}$ & $0.19\pm{0.071}$ \\
-		&$\sigma, z$ & $0.23\pm{0.003}$ & $0.19\pm{0.002}$ & $0.16\pm{0.002}$ & $0.55\pm{0.010}$ & $0.16\pm{0.009}$ & $0.39\pm{0.143}$ \\
-		&$\sigma, z, N_{gal}$ & $0.47\pm{0.007}$ & $0.14\pm{0.001}$ & $0.10\pm{0.001}$ & $0.54\pm{0.010}$ & \nd & \nd \\
-		\hline
-		\rottext{4}{ML}	&$\sigma$ & $0.29\pm{0.004}$ & $0.24\pm{0.002}$ & $0.21\pm{0.002}$ & $0.19\pm{0.004}$ & $0.18\pm{0.010}$ & $0.22\pm{0.081}$ \\
-		&$\sigma, z$ & $0.24\pm{0.003}$ & $0.20\pm{0.002}$ & $0.18\pm{0.002}$ & $0.16\pm{0.003}$ & $0.16\pm{0.009}$ & $0.19\pm{0.068}$ \\
-		&$\sigma, N_{gal}$ & $0.19\pm{0.003}$ & $0.14\pm{0.001}$ & $0.10\pm{0.001}$ & $0.08\pm{0.002}$ & $0.07\pm{0.004}$ & $0.10\pm{0.037}$ \\
-		&$\sigma, z, N_{gal}$ & $0.17\pm{0.002}$ & $0.13\pm{0.001}$ & $0.10\pm{0.001}$ & $0.07\pm{0.001}$ & $0.07\pm{0.004}$ & $0.11\pm{0.039}$ \\
-		\hline
-		
-		&& \multic{6}{Targeted Observations} \\
-		\hline
-		 \multicolumn{2}{c}{Power Law} & $0.43\pm{0.006}$ & $0.39\pm{0.004}$ & $0.33\pm{0.004}$ & $0.27\pm{0.005}$ & $0.18\pm{0.010}$ & $0.11\pm{0.039}$ \\
-		 \hline
-		\rottext{3}{Prob} &$\sigma$ & $0.24\pm{0.003}$ & $0.25\pm{0.002}$ & $0.25\pm{0.003}$ & $0.22\pm{0.004}$ & $0.19\pm{0.011}$ & $0.30\pm{0.110}$ \\
-		&$\sigma, z$ & $0.24\pm{0.003}$ & $0.24\pm{0.002}$ & $0.23\pm{0.002}$ & $0.56\pm{0.011}$ & $0.21\pm{0.012}$ & $0.36\pm{0.131}$ \\
-		&$\sigma, z, N_{gal}$ & $0.20\pm{0.003}$ & $0.19\pm{0.002}$ & $0.17\pm{0.002}$ & $0.67\pm{0.013}$ & \nd & \nd \\
-		\hline
-		\rottext{4}{ML} &$\sigma$ & $0.30\pm{0.004}$ & $0.32\pm{0.003}$ & $0.32\pm{0.003}$ & $0.30\pm{0.006}$ & $0.29\pm{0.016}$ & $0.13\pm{0.049}$ \\
-		&$\sigma, z$ & $0.26\pm{0.004}$ & $0.25\pm{0.002}$ & $0.24\pm{0.003}$ & $0.23\pm{0.004}$ & $0.27\pm{0.015}$ & $0.16\pm{0.057}$ \\
-		&$\sigma, N_{gal}$ & $0.27\pm{0.004}$ & $0.27\pm{0.003}$ & $0.27\pm{0.003}$ & $0.25\pm{0.005}$ & $0.18\pm{0.010}$ & $0.15\pm{0.053}$ \\
-		&$\sigma, z, N_{gal}$ & $0.21\pm{0.003}$ & $0.18\pm{0.002}$ & $0.16\pm{0.002}$ & $0.14\pm{0.003}$ & $0.12\pm{0.007}$ & $0.15\pm{0.054}$ \\
-		\hline
-		
-		&& \multic{6}{Survey Observations} \\
-		\hline
-		\multicolumn{2}{c}{Power Law} &$0.40\pm{0.050}$ & $0.41\pm{0.016}$ & $0.38\pm{0.010}$ & $0.32\pm{0.010}$ & $0.25\pm{0.016}$ & $0.15\pm{0.056}$ \\
-		\hline
-		\rottext{3}{Prob} &$\sigma$ & $0.11\pm{0.024}$ & $0.18\pm{0.008}$ & $0.22\pm{0.006}$ & $0.22\pm{0.007}$ & $0.19\pm{0.012}$ & $0.25\pm{0.092}$ \\
-		&$\sigma, z$ & $0.13\pm{0.028}$ & $0.19\pm{0.008}$ & $0.22\pm{0.006}$ & $0.21\pm{0.007}$ & $1.31\pm{0.084}$ & $0.32\pm{0.115}$ \\
-		&$\sigma, z, N_{gal}$ & $0.14\pm{0.030}$ & $0.18\pm{0.008}$ & $0.19\pm{0.005}$ & $0.19\pm{0.006}$ & \nd & \nd \\
-		\hline
-		\rottext{4}{ML} &$\sigma$ & $0.27\pm{0.034}$ & $0.27\pm{0.011}$ & $0.31\pm{0.008}$ & $0.30\pm{0.009}$ & $0.30\pm{0.019}$ & $0.29\pm{0.106}$ \\
-		&$\sigma, z$ & $0.20\pm{0.025}$ & $0.24\pm{0.009}$ & $0.24\pm{0.006}$ & $0.25\pm{0.008}$ & $0.24\pm{0.015}$ & $0.27\pm{0.100}$ \\
-		&$\sigma, N_{gal}$ & $0.25\pm{0.032}$ & $0.23\pm{0.009}$ & $0.27\pm{0.007}$ & $0.26\pm{0.008}$ & $0.27\pm{0.018}$ & $0.20\pm{0.072}$ \\
-		&$\sigma, z, N_{gal}$ & $0.17\pm{0.021}$ & $0.21\pm{0.008}$ & $0.20\pm{0.005}$ & $0.19\pm{0.006}$ & $0.17\pm{0.011}$ & $0.20\pm{0.071}$ \\
-		 \hline
-	\end{tabular}
-\label{tbl:mass scatter}
-\end{table*}
+\begin{landscape}
+	\begin{table}
+	\centering
+	\caption{Scatter (Eqn.~\ref{eqn: scatter}) in cluster mass after bias correction for different bins of predicted cluster mass. This table shows the scatter in the predicted cluster mass for the perfect (top section), Targeted (middle section), and Survey (bottom section) observations in different predicted mass bins. The different mass recovery strategies are given in the leftmost column. It can be used to understand how the predicted cluster mass differs from the true cluster masses.}
+	\begin{tabular}{cccccccc} 
+			&& \multic{6}{Bins -- Log $M_{pred}$} \\
+			\cline{3-8} 
+			\multicolumn{2}{c}{Method} & $12.5-13$ & $13-13.5$ & $13.5-14$ & $14-14.5$ & $14.5-15$ & $15-15.5$ \\
+			\hline 
+			&& \multic{6}{Perfect Observations} \\
+			\hline
+			\multicolumn{2}{c}{Power Law} & $0.34\pm{0.005}$ & $0.22\pm{0.002}$ & $0.16\pm{0.002}$ & $0.14\pm{0.003}$ & $0.14\pm{0.008}$ & $0.11\pm{0.040}$ \\
+			\hline 
+			\rottext{3}{Prob} &$\sigma$ & $0.26\pm{0.004}$ & $0.20\pm{0.002}$ & $0.16\pm{0.002}$ & $0.14\pm{0.003}$ & $0.16\pm{0.009}$ & $0.19\pm{0.071}$ \\
+			&$\sigma, z$ & $0.23\pm{0.003}$ & $0.19\pm{0.002}$ & $0.16\pm{0.002}$ & $0.55\pm{0.010}$ & $0.16\pm{0.009}$ & $0.39\pm{0.143}$ \\
+			&$\sigma, z, N_{gal}$ & $0.47\pm{0.007}$ & $0.14\pm{0.001}$ & $0.10\pm{0.001}$ & $0.54\pm{0.010}$ & \nd & \nd \\
+			\hline
+			\rottext{4}{ML}	&$\sigma$ & $0.29\pm{0.004}$ & $0.24\pm{0.002}$ & $0.21\pm{0.002}$ & $0.19\pm{0.004}$ & $0.18\pm{0.010}$ & $0.22\pm{0.081}$ \\
+			&$\sigma, z$ & $0.24\pm{0.003}$ & $0.20\pm{0.002}$ & $0.18\pm{0.002}$ & $0.16\pm{0.003}$ & $0.16\pm{0.009}$ & $0.19\pm{0.068}$ \\
+			&$\sigma, N_{gal}$ & $0.19\pm{0.003}$ & $0.14\pm{0.001}$ & $0.10\pm{0.001}$ & $0.08\pm{0.002}$ & $0.07\pm{0.004}$ & $0.10\pm{0.037}$ \\
+			&$\sigma, z, N_{gal}$ & $0.17\pm{0.002}$ & $0.13\pm{0.001}$ & $0.10\pm{0.001}$ & $0.07\pm{0.001}$ & $0.07\pm{0.004}$ & $0.11\pm{0.039}$ \\
+			\hline
+			
+			&& \multic{6}{Targeted Observations} \\
+			\hline
+			 \multicolumn{2}{c}{Power Law} & $0.43\pm{0.006}$ & $0.39\pm{0.004}$ & $0.33\pm{0.004}$ & $0.27\pm{0.005}$ & $0.18\pm{0.010}$ & $0.11\pm{0.039}$ \\
+			 \hline
+			\rottext{3}{Prob} &$\sigma$ & $0.24\pm{0.003}$ & $0.25\pm{0.002}$ & $0.25\pm{0.003}$ & $0.22\pm{0.004}$ & $0.19\pm{0.011}$ & $0.30\pm{0.110}$ \\
+			&$\sigma, z$ & $0.24\pm{0.003}$ & $0.24\pm{0.002}$ & $0.23\pm{0.002}$ & $0.56\pm{0.011}$ & $0.21\pm{0.012}$ & $0.36\pm{0.131}$ \\
+			&$\sigma, z, N_{gal}$ & $0.20\pm{0.003}$ & $0.19\pm{0.002}$ & $0.17\pm{0.002}$ & $0.67\pm{0.013}$ & \nd & \nd \\
+			\hline
+			\rottext{4}{ML} &$\sigma$ & $0.30\pm{0.004}$ & $0.32\pm{0.003}$ & $0.32\pm{0.003}$ & $0.30\pm{0.006}$ & $0.29\pm{0.016}$ & $0.13\pm{0.049}$ \\
+			&$\sigma, z$ & $0.26\pm{0.004}$ & $0.25\pm{0.002}$ & $0.24\pm{0.003}$ & $0.23\pm{0.004}$ & $0.27\pm{0.015}$ & $0.16\pm{0.057}$ \\
+			&$\sigma, N_{gal}$ & $0.27\pm{0.004}$ & $0.27\pm{0.003}$ & $0.27\pm{0.003}$ & $0.25\pm{0.005}$ & $0.18\pm{0.010}$ & $0.15\pm{0.053}$ \\
+			&$\sigma, z, N_{gal}$ & $0.21\pm{0.003}$ & $0.18\pm{0.002}$ & $0.16\pm{0.002}$ & $0.14\pm{0.003}$ & $0.12\pm{0.007}$ & $0.15\pm{0.054}$ \\
+			\hline
+		\end{tabular}
+	\label{tbl:mass bias}
+	\end{table}
+\end{landscape}			
+\addtocounter{table}{-1}			
+\begin{landscape}
+	\begin{table}
+	\centering
+	\caption{Continued}
+	\begin{tabular}{cccccccc} 
+			&& \multic{6}{Bins -- Log $M_{pred}$} \\
+			\cline{3-8} 
+			\multicolumn{2}{c}{Method} & $12.5-13$ & $13-13.5$ & $13.5-14$ & $14-14.5$ & $14.5-15$ & $15-15.5$ \\
+			\hline
+			&& \multic{6}{Survey Observations} \\
+			\hline
+			\multicolumn{2}{c}{Power Law} &$0.40\pm{0.050}$ & $0.41\pm{0.016}$ & $0.38\pm{0.010}$ & $0.32\pm{0.010}$ & $0.25\pm{0.016}$ & $0.15\pm{0.056}$ \\
+			\hline
+			\rottext{3}{Prob} &$\sigma$ & $0.11\pm{0.024}$ & $0.18\pm{0.008}$ & $0.22\pm{0.006}$ & $0.22\pm{0.007}$ & $0.19\pm{0.012}$ & $0.25\pm{0.092}$ \\
+			&$\sigma, z$ & $0.13\pm{0.028}$ & $0.19\pm{0.008}$ & $0.22\pm{0.006}$ & $0.21\pm{0.007}$ & $1.31\pm{0.084}$ & $0.32\pm{0.115}$ \\
+			&$\sigma, z, N_{gal}$ & $0.14\pm{0.030}$ & $0.18\pm{0.008}$ & $0.19\pm{0.005}$ & $0.19\pm{0.006}$ & \nd & \nd \\
+			\hline
+			\rottext{4}{ML} &$\sigma$ & $0.27\pm{0.034}$ & $0.27\pm{0.011}$ & $0.31\pm{0.008}$ & $0.30\pm{0.009}$ & $0.30\pm{0.019}$ & $0.29\pm{0.106}$ \\
+			&$\sigma, z$ & $0.20\pm{0.025}$ & $0.24\pm{0.009}$ & $0.24\pm{0.006}$ & $0.25\pm{0.008}$ & $0.24\pm{0.015}$ & $0.27\pm{0.100}$ \\
+			&$\sigma, N_{gal}$ & $0.25\pm{0.032}$ & $0.23\pm{0.009}$ & $0.27\pm{0.007}$ & $0.26\pm{0.008}$ & $0.27\pm{0.018}$ & $0.20\pm{0.072}$ \\
+			&$\sigma, z, N_{gal}$ & $0.17\pm{0.021}$ & $0.21\pm{0.008}$ & $0.20\pm{0.005}$ & $0.19\pm{0.006}$ & $0.17\pm{0.011}$ & $0.20\pm{0.071}$ \\
+			 \hline
+		\end{tabular}
+	\label{tbl:mass scatter}
+	\end{table}
+\end{landscape}
 
 A few caveats apply to the numbers given in Table \ref{tbl:mass bias} and Table \ref{tbl:mass scatter}. While we provide corrections for cluster masses above $10^{15}$ \msol, they are estimated from only a handful of objects, and do not constitute a representative sample of clusters. This becomes particularly apparent for the probability methods with many features. As the number of observed features increases, the number of training clusters in any particular bin decreases. This leads to highly skewed biases and scatters for the high mass clusters and probability methods. We do not report any bin where such small number statistics dominate in Tables~\ref{tbl:mass bias} and \ref{tbl:mass scatter}. On the opposite end of the cluster mass spectrum, there are very few, if any, clusters detected with Targeted or Survey observations below $5\times10^{12}$ \msol. Therefore, while we show these points in Figures~\ref{fig:Probability comparison} and \ref{fig: ML comparison}, we exclude their biases and scatters from Tables~\ref{tbl:mass bias} and \ref{tbl:mass scatter} for the same reasons. 
  
@@ -354,8 +389,9 @@ We repeat our analysis using cluster halo and galaxy catalogs from the Millenniu
 
 We select 4,806 clusters, comprised of 623,663 galaxies, at $0.02 < z < 0.5$ and $M > 10^{13}$ \Msol, and apply the same data processing as with the Buzzard galaxies. We begin by assigning each galaxy an \hbox{[\ion{O}{ii}]} flux value (see Section \ref{sec: oii luminosity}), and ``observe'' each galaxy using realistic (see Section \ref{sec: observations}) observational limits. After recovering 3750 clusters which have at least five galaxies observed, we calculate the LOSVD of each cluster as in Section \ref{sec: LOSVD}. 
 
-\begin{figure} 
-	\includegraphics[width=\textwidth]{figures1/millBuzzComparison.pdf} 
+\begin{figure}
+	\centering 
+	\includegraphics[height=0.75\textheight]{figures1/millBuzzComparison.pdf} 
 	\caption{\emph{Top:} ML based cluster mass predictions for the Millennium simulation clusters where the ML method has been trained with either a subset of the Millennium clusters (solid line) or the Buzzard catalog (dashed line). The shaded areas show the 68\% scatter around the median. The solid black line shows the 1:1 relation. \emph{Bottom:} The fractional error (Equation~\ref{eq: fractional error}) also as a function of true cluster mass. The similarity of the predictions with the different training sets demonstrates how the ML method is not sensitive to the underlying cosmological assumptions.} \label{fig: mill buzz comparison} 
 \end{figure}
 
@@ -420,8 +456,9 @@ We also estimate the intrinsic scatter. For observations with a richness-mass re
 
 %The discrepancy between the intrinsic value and the measured value is due to the uncertainties in the individual cluster mass predictions. As the prediction intervals are narrowed, the recovered intrinsic scatter approaches the true value. For example, with cluster mass prediction intervals half the size of the current intervals we measure $\langle \sigma_{M|\lambda} \rangle$ to be $\sim 0.25$ and $\sim 0.23$ dex for the two sets of observations.
 
-\begin{figure} 
-	\includegraphics[width=\textwidth]{figures1/massRichness.pdf} 
+\begin{figure}
+	\centering 
+	\includegraphics[height=0.75\textheight]{figures1/massRichness.pdf} 
 	\caption{\emph{Top}: The optical richness, $\lambda$, versus the corrected predicted cluster mass. The solid, purple line is the median predicted mass for the Targeted observing, and the turquoise, dashed line is the median recovered mass for the HETDEX-like observations. The shaded regions represent the 68\% scatter around the median values. \emph{Bottom}: The scatter in the relation at fixed richness. The solid black line shows the intrinsic scatter of $\sigma_{true}=0.25$ dex. Color coding is the same as the top panel. \emph{Inset}: The evolution of the intrinsic scatter versus the average recovered scatter, $\sigma_{rec}$.} \label{fig:mass richness} 
 \end{figure}
 
