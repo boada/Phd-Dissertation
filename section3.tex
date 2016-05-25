@@ -1,0 +1,231 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  New template code for TAMU Theses and Dissertations starting Fall 2012.  
+%  For more info about this template or the 
+%  TAMU LaTeX User's Group, see http://www.howdy.me/.
+%
+%  Author: Wendy Lynn Turner 
+%	 Version 1.0 
+%  Last updated 8/5/2012
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                           SECTION III
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+\chapter[\uppercase{Searching for Variability, Eclipses, Flares and Transients}]{\uppercase{Searching for Variability, Eclipses, Flares and Transients}\symbolfootnote[1]{Reprinted in part with permission from ``Difference Image Analysis of Defocused Observations with CSTAR'' by Oelkers et al., 2015. The Astronomical Journal, Volume 149, 50-63 pp., Copyright 2015 by Ryan J. Oelkers and in part with permission from ``Stellar Variability and Flare Rates from Dome A, Antarctica using 2009 and 2010 CSTAR Observations'' by Oelkers et al., 2016. The Astronomical Journal, accepted, Copyright 2016 by Ryan J. Oelkers.} }
+\renewcommand*{\thefootnote}{\arabic{footnote}}
+\setcounter{footnote}{0}
+
+One of the main goals of this study was to confirm the ability of the DIA code to produce data products precise enough to detect stellar variability even in a hostile photometric environment. If we could prove the code was robust enough to detect low SNR signals then we could be confident in our ability to detect these same signals in highly variable or irregular data. To search for these signals we used a combination of variability and periodicity metrics combined with a slew of variability whitening techniques to remove large amplitude variations which could be masking the eclipses. 
+
+\section{Search for Variability \label{subsec:varmetric}}
+
+We employed a combination of 3 variability metrics, following the approach of \citet{Wang2013, Oelkers2015}. First we computed the root-mean-square (hereafter, rms) of all stars and the upper 2$\sigma$ envelope as a function of magnitude; objects lying above this limit are likely to be genuine astrophysical variables. Next, we computed the magnitude range spanned by 90\% of the data points of every light curve (hereafter, $\Delta_{90}$) and its upper 2$\sigma$ envelope as a function of magnitude. Since we wished that both statistics be based on ``constant'' stars only and not be biased by large-amplitude variables, both envelopes were calculated in an iterative fashion. We discarded objects located above the median by more than the difference between the median value and the minimum value.
+
+Finally, we computed the Welch-Stetson \textit{J} variability statistic (hereafter, \textit{J} \citep{Stetson1996}) including the necessary rescaling of DAOPHOT errors \citep{Kaluzny1998}. The \textit{J} statistic is useful to detect variability during short time spans, such as the $5-40$ second sampling of the CSTAR data, since it computes the significance of photometric variability between adjacent data points. The \textit{J} statistic is expected to produce a distribution of values with a mean value close to zero for the ``constant'' stars and a one-sided tail towards positive values for the ``variable'' stars. We considered objects lying above the $+3\sigma$ value as variable. 
+
+We considered a star to be variable if the star passed all 3 of the above tests in either \textit{g}, \textit{r}, \textit{clear} or \textit{i}. A star was removed from the variable sample if it was within 3.75 (7.5) pixels of a star 2 magnitudes brighter in \textit{i}(\textit{g}\&\textit{r}); the star's \textit{primary} LS period was an aliased period with SNR greater than 1$\sigma$ of the mean SNR for a given band; or the star had less data than 90\% of light curves. The star was returned to the periodic sample if it was later found to have a significant LS period which was \textit{not} an alias. Figure~\ref{fig:stat} shows these techniques recovering the variable candidate CSTARJ192801.90-881331. 
+
+\begin{figure}[H]
+\begin{center}
+\singlespace
+\includegraphics[scale=0.5]{./figures/section3/var_stats.pdf}
+\end{center}
+\singlespace
+\caption{Variability Testing}  Variability tests used to identify variable candidates in the 2009 \& 2010 data sets. Stars lying above the red line in the top panels and to the right of the line in the bottom left panel are expected to be variable. \textit{Top Left}: $\Delta_{90}$ statistic with the upper 2$\sigma$ quartile plotted as a red line. \textit{Top Right}: rms statistic with the upper 2$\sigma$ quartile plotted as a red line. \textit{Bottom Left}: J Stetson statistic with the upper 3$\sigma$ cut plotted as a red line. \textit{Bottom Right}: The light curve of the variable candidate CSTARJ192723.13-881334 from the 2010 \textit{i} data set. The candidate is shown clearly passing each statistic as a red dot in the top two panels and a red arrow in the bottom left panel. The light curve is shown in 10~min bins with the size of each data point being the size of the typical photometric error.\label{fig:stat}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\singlespace
+\includegraphics[scale=0.5]{./figures/section3/per_stats.pdf}
+\end{center}
+\singlespace
+\caption{Periodicity Testing}   The periodicity tests used to identify periodic candidates in the 2009 \& 2010 data sets. \textit{Top Left}: the number of ``variable'' stars with similar periods, indicative of aliasing. The passing candidate is shown with a red arrow. Notice the period is not found on or near a large distribution of other periods; \textit{Top Right}: the $+3\sigma$ cut (red line) on the signal-to-noise ratio. The passing candidate is shown with an arrow; \textit{Bottom Left}: the $+3\sigma$ cut (red line) on the false alarm probability. The passing candidate's log$_{10}$(FAP) is shown with an arrow; \textit{Bottom Right}: The light curve of a periodic variable star candidate CSTARJ071204.59-875109. The light curve has been phase folded on the recovered period of 2.64~d, binned into 200 data points and plotted twice for clarity. The typical error is shown at the bottom right of the panel. \label{fig:perd}
+\end{figure}
+
+\section{Search for Periodicity \label{subsec:permetric}}
+
+We searched each light curve for periodic signals using a Lomb-Scargle periodogram \citep[LS]{Lomb, Scargle} as implemented in VARTOOLS \citep{Hartman2008}. We computed the 3 highest SNR periods of each star between 0.01~d and the total number of days observed in each band. Each light curve was whitened against the highest SNR period before searching for the next. We checked each signal against known aliases and removed spurious signals. We also applied $+3\sigma$ cuts based on the false alarm probability (log$_{10}$(FAP)) and SNR. The FAP provides an estimate on the likelihood of a true periodic signal by comparing the SNR of a specific signal to the cumulative distribution of all SNRs. Figure~\ref{fig:perd} shows the technique recovering the period for the candidate CSTARJ071204.59-875109. We removed stars from the periodic sample using the same cuts described in \S~\ref{subsec:varmetric}.
+
+\subsection{Search for Transits and Eclipses}
+
+We ran the Box Least Squares algorithm (hereafter, BLS) to search for transit- or eclipse-like events which may have eluded our previous variability searches \citep{Kovacs2005}. Because the transit is only expected to occur for a very short amount of phase, typically 5\% \citep{Charbonneau2000}, the signal is non-sinusoidal. The BLS routine searches for signals caused by a periodic alternation between two flux levels, H (the out-of-transit level) and L (the transit level). By searching the over the parameter space of period, eclipse depth and transit length the probability of detection for a small, periodic, eclipse-like feature is greatly increased. 
+
+Prior to each eclipse search we pre-whitened the light curve against the primary LS period and its 10(9) (sub-)harmonics. We then searched each light curve for transits with periods between 0.1~d and a third of the maximum observing length (to ensure a minimum of 3 transits) with a transit length of 0.01 and 0.1 of the period. We allowed for 10,000 trial periods and 200 phase bins. We also adopted a number of detection thresholds that are common among exoplanet searches. We required no less that 3 transit events for every candidate to ensure no significant variation between the odd and even eclipses, which would suggest an eclipsing binary over a transit. While typical planetary transits produce a drop in the light curve of only 1 to 2\%, we kept larger depth events since they could be due to other interesting objects such as brown dwarfs or eclipsing binary stars. We then subjected each light curve to criteria based on the statistics of the BLS routine. 
+
+Typically, the error in ground based milli-magnitude photometry is correlated. Because this is the regime we will be searching for exoplanets, we will investigate the $S_{red}$ statistic described in \citet{Pont2006} to determine the significance level of each transit. Any transit candidate with a $S_{red}$ statistic greater than 7 will be considered significant. True transits will only show the systematic dimming of each light curve and not a systematic brightening or anti-transit. \citet{Burke2006} suggests a transit to anti-transit statistic $\Delta \chi^2 / \Delta \chi_{-}^2$, where both the transit and anti transit $\chi^2$ are compared. Only stars with the statistic $>1.5$ are considered candidates. 
+
+\section{Search for Stellar Flares \label{subsec:flr}}
+
+We searched for flare events using the IDL function GAUSSFIT with a 6-term solution to allow for symmetric and asymmetric flare detection. Similar to the BLS search, we pre-whitened all light curves against the most significant LS period and its 10(9) (sub)harmonics. Each whitened light curve was broken into 0.25~d bins with at least 50 data points per bin prior to the fit. Any best-fit gaussian with $0.8<\chi^2_{\nu}<1.2$ and a flare amplitude greater than the rms of the light curve passed the first significance cut. 
+
+All passing events were phased on the sidereal day to check against ``ghosting'' signals. Any recurrent event in sidereal phase was flagged as a spurious ``ghost" detection. This procedure was repeated, phasing the events on the whitened LS period to identify events which may have been artifacts of the whitening process. Similarly, the MJD of each flare was checked against all other flare event timings to rule out events which were caused by global artifacts, such as misalignments or bad subtractions. The phase of each flare event was also visually inspected to confirm there were no other noticeable flares, indicative of ghost events and the previous and next sidereal day were examined to ensure no similar variation occurred. Additionally, any star with a candidate flare in \textit{g} or \textit{r} observed between MJD 54955-985, when the observations overlapped, had its light curve inspected in the alternate band. If the flare did not pass the cuts mentioned above then it was removed from the candidate list.
+
+Any flare timing within 5~min of a flare in \textit{another} star was flagged and removed. The position of each flaring star was required to be more than 5~pixels from a known ghosting track or bleed trail from a saturated star. Candidates were further constrained to have $0.95<\chi^2_{\nu}<1.05$ to remove candidates which were fitting the noise of a light curve instead of flare-like variation. Lastly, we removed stars from our flaring sample which did not pass the cuts for proximity or aliasing mentioned in  \S~\ref{subsec:varmetric}.
+
+We attempted to quantify the possible ghost contamination in our sample because of the large number of light curves showing ghosting events. We estimated this contamination by injecting fake flares of varying amplitude, length and phase into simulated light curves with varying noise. These contaminated light curves were then run through our selection process. We found on average $12\%$ of the total flares recovered were ghost contaminants with lengths $<45$~min. We use this contamination rate to correct our flaring fraction.
+
+To quantify the flare rate and make comparisons to the previously mentioned studies we needed to select the stars which were the most likely to be K/M dwarfs. We identified the stars in our data set using the 2MASS catalogue \citep{Skrutskie2006} to provide \textit{JHK} magnitudes. We combined the \textit{J-H} vs.~\textit{H-K} color-color diagram with the stellar locus for K5V-M9V provided by \citet{Pecaut2013}. We selected stars with 2MASS photometric errors $\sigma < 0.2$~mag and within $\pm1\sigma$ of the \textit{J-H} vs.~\textit{H-K} locus as the most likely dwarf candidate members. To estimate contamination by background giants we queried the TriLegal model \citep{Girardi2012} for the Galaxy and applied the same cuts. We estimate our contamination to be $<1\%$ at each spectral type. We estimate the Galactic reddening vector with the relations from \citet{Fitzpatrick1999} and find extinction would preferentially scatter early type dwarfs into our selection sample. However, since E(B-V) at the SCP is $\sim0.16$~mag \citet{Schlafly2011}, the expected color excess in the 2MASS bands is E(J-H)$<0.05$~mag and E(H-K) $< 0.03$~mag.  We expect these effects to cause minimal contamination from early-type stars.
+
+\section{Search for Transient Events}
+
+DIA provides a unique opportunity to detect variability in a star field before searching through light curves, since correlated residuals on a differenced frame indicate a statistically significant change in flux. A ``detection'' frame can be created by co-adding the absolute values of differenced frames to achieve a higher SNR identification of variable or transient behavior. Each differenced frame was normalized on a per-pixel basis by the square root of the sum of the counts in the science and reference frames before the co-addition. We also masked all pixels within a 5-pixel radius of the position of any point source in the master list.
+
+Due to the nearly-polar location of Dome A, many images were contaminated by satellite tracks which were masked as follows. The FIND routine was used to identify sources in each differenced frame with stellar-like PSFs. These objects were temporarily masked and a line was fit to any remaining pixels with large positive deviations ($>10\sigma$ above the mean background) using the IDL routine ROBUST$\_$LINFIT. If the residuals of the fit had a standard deviation $<3$~pix, a trapezoidal mask was placed along the best-fit line. This process was repeated until no best-fit line was found to account for multiple satellite trails. The temporary masks were then removed and the absolute value of the frame was taken. The final detection frames were made by co-adding all frames obtained within a 24 hour window (typically $>3200$ frames).
+
+The detection frames were inspected for correlated residuals with stellar-like PSFs in the ``blank'' areas of the master frame. Recall that all point sources detected in the master frame were masked in these detection frames; therefore this search was specifically aimed at identifying transients arising from objects normally lying below the limiting magnitude of CSTAR. 7$\times$7 pixel stamps centered on each transient candidate were extracted and retained if they exhibited a $>+5\sigma$ variation above the sky background. If a transient event occurred in \textit{g} \& \textit{r} between MJD 54955-985 its position and timing were checked in the alternate band to aid in confirmation. Any transient without a counterpart was removed from our sample.
+
+Fluxes were then extracted from all differenced frames (as described in \S~\ref{subsec:flux}) for two reasons. The first was to check for \textit{bona-fide} variation of the transient light curve, which might have been missed by the metric above. The second was to give a robust sample of possible aliasing flares described in \S~\ref{subsec:ghosts}. Since the majority of each transient light curve was simply the sky background, variations due to moonlight or twilight had to be removed by subtracting the median sky value of the image from each transient light curve. 
+
+Each transient candidate light curve was checked against known aliasing features as follows. The light curve was divided into segments spanning 0.01 sidereal days and the mean magnitude of each fragment was compared to $\bar{m}_\phi$, defined as the mean magnitude of all other sections of the light curve spanning the same fractional sidereal day during the rest of the season.  The variation was considered \textit{bona-fide} if it contained at least 10 data points and lay $>+2\sigma$ above $\bar{m}_\phi$. The timing of each transient passing these cuts was further checked against the timing of \textit{all} others. If an event was found to coincide in time with another candidate, both were discarded as spurious.
+
+\section{Results}
+
+\subsection{Variability and Periodicity Searches\label{subsec:lib}}
+Previous studies of CSTAR data \citep{Wang2011, Wang2013, Oelkers2015, Yang2015} have generated lists of variables by applying a binary classification (i.e., an object is either variable or not, based on a set of criteria). In this work, we present the likelihood of variability and/or periodicity for every object, computed as follows. Stars meeting the variability criteria in \textit{g} or \textit{r} received one point per band, while two points were awarded for \textit{i} because those images were in focus and well sampled. Similarly, stars exhibiting a significant periodicity received 2 points in \textit{i} and 1 in \textit{g} \& \textit{r}. We found 45 objects to have a variability or periodicity (LS or BLS) score of 3 or more, signifying a high likelihood of variability. Table~\ref{tb:var} is an example list of all stars in our sample and their resulting scores which will be included with the stellar library. If the star had a variability or periodicity score of 3 or more, its type was estimated in Table~\ref{tb:var}.\\
+
+\begin{figure}[H]
+\begin{center}
+\singlespace
+\includegraphics[width=\textwidth]{./figures/section3/varrate.pdf}
+\end{center}
+\singlespace
+\caption{Variability Rates with CSTAR}   \textit{Top Left}: Positions (in CSTAR detector coordinates) of stars in our library (grey dots). Catalogued variable stars are shown with red dots; flaring stars are shown with blue dots; the cross marks the SCP. The points appear to be randomly distributed across the detector. \textit{Top Right}: The number of variable stars identified as a function of magnitude for a given band. \textit{Bottom Left}: The $\Delta_{90}$ statistic for all identified variable stars in a given band. Variability appears to be large in \textit{g}. \textit{Bottom Right}: The normalized variable star rate for a given sq. degree of the sky. All errors are based on Poisson statistics and agree with previous reductions of the CSTAR data sets.\label{fig:varrate}
+\end{figure}
+
+Numerous reductions of the CSTAR data sets have identified many new and intriguing variable stars. The unprecedented cadence of the telescope over a 6-month period allows for a statistical analysis of the number of variable stars which could be visible in a given FoV. Figure~\ref{fig:varrate} shows all of the variable stars in our field as well as the flaring stars described below. We find the majority of our recovered variable stars are mag$\sim12$ in all bands with variables in \textit{g} showing the largest magnitude variation. Finally we determined a normalized variable rate of $7.0\pm0.5\times10^{-4}$ variable stars per sq. degree across all bands, $4.8\pm0.6\times10^{-4}$ for \textit{g}, $2.8\pm0.3\times10^{-4}$ for \textit{r} and $5.7\pm0.5\times10^{-4}$ for \textit{i}. These rates are consistent with previous studies of the CSTAR field.
+
+A specific advantage of the 2009 CSTAR dataset is the addition of 3-color photometry. Variable stars in the CSTAR field now have the unique opportunity to be studied for variations in both time and color. Figure~\ref{fig:ccplot} is a color - color diagram for stars in our sample with \textit{gri} magnitudes. We find $\sim91\%$ of the stars in our sample have \textit{g}$-$\textit{r} $>0$. This is consistent with the CSTAR field being directed towards the galactic halo and confirms previous and current variable star searches in the field finding many irregular and multi-periodic RGB or AGB-like stars. Indeed we find normal pulsators, such as RR Lyraes or $\delta$ Scuti stars, multi-periodic and irregular variables have $\langle g\!-\!r \rangle \sim 0.59$. In contrast the eclipsing binaries, which are expected to have a wide variety of ages along the main sequence, have $\langle g\!-\!r \rangle \sim 0.22$. 
+
+\begin{figure}[H]
+\begin{center}
+\singlespace
+\includegraphics[width=\textwidth]{./figures/section3/color-color.pdf}
+\end{center}
+\singlespace
+\caption{Color-Color Diagram of Stars in 2009 CSTAR Library}   Color-color diagram for stars in our 2009 CSTAR sample with three-band photometry (the i-band data is from the 2010 CSTAR photometry of \citet{Wang2013}). Small black points denote the data points constant stars. Red points are regular periodic variables such as RR Lyrae, $\delta$~Scuti and $\gamma$~Doradus. Gold points are irregular, multi-periodic and long-term variable stars. Blue points are eclipsing binaries.\label{fig:ccplot}
+\end{figure}
+
+The defocused nature of the observations likely aided in the identification of 7 stars as variable. These stars were either close to or fully saturated in the \textit{i} data from 2008 and 2010. The American Association of Variable Star Observers (AAVSO) has previously catalogued 4 of these stars. The AAVSO has classified 2 of these variables, \#p09-004 and \#p09-002, as a slowly-varying and a non-periodic semi-regular variable, respectively. After our LS search we found both of these stars to have periods passing our threshold criterion of 60.5~d and 22.2~d respectively. \#p09-003 is archived in the  AAVSO database as a miscellaneous variable with a period of 73.3~d. We found this variable to be semi-regular, currently exhibiting a main period of 16.6~d. We have also recovered the variability in \#p09-007, which is classified as a $\delta$ Scuti star with a period of 0.12~d. 
+
+Figure~\ref{fig:recover} shows the light curves of 9 variable stars in our 2009 data set. \#p09-007 is an example of a bright star ($g\sim r \sim 6.8$~mag) that was saturated in CSTAR observations carried out during other winter seasons when the array was in focus. The defocused nature of our images allowed it to remain below the saturation limit, enabling a period determination of 0.122~d. Previous studies of \#n106372 classified this star with a period of 12.5~d \citep{Wang2011}. We recover the star as periodic but with a significant period of 0.57~d in all bands. The remaining variables shown in the Figure~\ref{fig:recover} were present in the 2008 and 2010 data sets and span a variety of types and periods.
+
+\begin{figure}[H]
+\begin{center}
+\singlespace
+\includegraphics[width=\textwidth]{./figures/section3/09_vars.pdf}
+\end{center}
+\singlespace
+\caption{Recovered Variables}   Light curves for 9 variable stars in \textit{g} (top), \textit{clear} (middle) and \textit{r} (bottom) showcasing the different types of objects present in our sample (from top left to bottom right): RR Lyrae (\#n058002); periodic variable (\#n090919); periodic variable (\#n106372); $\gamma$~Doradus (\#n897790); periodic variable (\#n055150); $\delta$~Scuti (\#p09-007);  contact binary (\#n042221); semi-detached binary (\#n059543); and detached binary (\#n123187). The light curves have been phased and binned into 200 data points. \label{fig:recover}
+\end{figure}
+
+Numerous reductions of the CSTAR data sets have identified many new and intriguing variable stars. The unprecedented cadence of the telescope over a 6-month period allows for small-scale variation to be robustly detected.  Figure~\ref{fig:ceph} shows the \textit{g} and \textit{r} light curves of \#n057725. This variable exhibited very regular, Cepheid-like pulsations in the 2008 \textit{i} data and a much more complex light curve structure in the 2010 \textit{i} data, with clear evidence of eclipses. The 2009 light curves show enhanced variability in the cepheid-like modulation of the light curve. The expected times of eclipse are highlighted with red arrows for primary eclipses and blue arrows for secondary eclipses. We applied a smoothing kernel to the light curves to aid in the recovery of the suspected binary eclipses. We find we recover both the primary and secondary eclipses in \textit{g} $\&$ \textit{r} at the expected eclipse times.
+
+\begin{figure}[H]
+\begin{center}
+\singlespace
+\includegraphics[width=\textwidth]{./figures/section3/n057725.pdf}
+\end{center}
+\singlespace
+\caption{Population II Cepheid in an Eclipsing Binary System} Light curves of  \#n057725, a likely Population II Cepheid in an eclipsing binary system showing complex variability. The top panels show the 2009 \textit{g} and \textit{r} light curves with the smoothed light curve over-plotted. The bottom panels highlight the eclipse-like events that take place every 43.2~d. Red arrows mark the expected time of primary eclipse and blue arrows mark the expected time of secondary eclipse. \label{fig:ceph}
+
+\end{figure}
+
+\begin{landscape}
+\begin{table}[H]
+\centering
+\tiny
+\caption{Candidate Flares in 2009 and 2010 CSTAR Data}
+\begin{tabular}{ccccccccc}
+\hline
+CSTAR ID & R.A. & Dec. & Filter & K/M Dwarf & MJD-2454500 & Length [d] & Amplitude [mag] & Comment \\
+\hline
+CSTARJ111143.79-875135 & 11:11:43.79 & -87:51:35 & i & K5V & 887.181580 & 0.350 & 0.027 &            ... \\
+CSTARJ100426.56-883937 & 10:04:26.56 & -88:39:37 & i & ... & 881.362122 & 0.065 & 0.016 &            ... \\
+CSTARJ104851.25-882931 & 10:48:51.25 & -88:29:31 & i & ... & 859.818665 & 0.102 & 0.096 &            ... \\
+CSTARJ112329.83-891523 & 11:23:29.83 & -89:15:23 & i & ... & 858.012878 & 0.022 & 0.336 &            ... \\
+CSTARJ150830.36-885721 & 15:08:30.36 & -88:57:21 & i & ... & 832.369446 & 0.324 & 0.015 &            ... \\
+CSTARJ115040.50-892747 & 11:50:40.50 & -89:27:47 & i & K6V & 827.375916 & 0.777 & 0.014 &            ... \\
+CSTARJ064616.70-874825 & 06:46:16.70 & -87:48:25 & i & ... & 847.265564 & 0.023 & 0.298 &            ... \\
+CSTARJ062327.70-875637 & 06:23:27.70 & -87:56:37 & i & ... & 886.023499 & 0.310 & 0.057 &            ... \\
+CSTARJ210848.50-892830 & 21:08:48.50 & -89:28:30 & i & ... & 865.311279 & 0.022 & 0.574 &            ... \\
+CSTARJ034834.23-882808 & 03:48:34.23 & -88:28:08 & i & ... & 861.093262 & 0.490 & 0.045 &            ... \\
+CSTARJ021530.10-873840 & 02:15:30.10 & -87:38:40 & g & ... & 468.947968 & 0.028 & 0.081 &  drop out in r \\
+CSTARJ054239.09-872933 & 05:42:39.09 & -87:29:33 & g & ... & 476.092010 & 0.270 & 0.033 &  drop out in r \\
+CSTARJ100426.56-883937 & 10:04:26.56 & -88:39:37 & g & ... & 478.015503 & 0.033 & 0.032 &  drop out in r \\
+CSTARJ153412.75-881014 & 15:34:12.75 & -88:10:14 & g & ... & 472.540314 & 0.260 & 0.260 &      seen in r \\
+CSTARJ060139.40-880138 & 06:01:39.40 & -88:01:38 & g & ... & 481.687744 & 0.410 & 0.049 &   no star in r \\
+CSTARJ060745.20-882219 & 06:07:45.20 & -88:22:19 & g & M2V & 479.106659 & 0.032 & 0.031 &   drop out in r \\
+CSTARJ203720.10-880633 & 20:37:20.10 & -88:06:33 & g & ... & 471.879669 & 0.120 & 0.034 &   drop out in r \\
+CSTARJ172731.23-885235 & 17:27:31.23 & -88:52:35 & g & M8V & 477.950073 & 0.140 & 0.018 &   drop out in r \\
+CSTARJ122630.23-882031 & 12:26:30.23 & -88:20:31 & g & ... & 449.685028 & 0.248 & 0.665 &   outside window \\
+CSTARJ100731.56-884333 & 10:07:31.56 & -88:43:33 & g & ... & 471.660156 & 0.230 & 0.320 &   drop out in r \\
+CSTARJ100737.56-880919 & 10:07:37.56 & -88:09:19 & r & ... & 506.169220 & 0.120 & 0.045 & outside window \\
+CSTARJ090621.10-882040 & 09:06:21.10 & -88:20:40 & r & M0V & 490.181580 & 0.230 & 0.219 & outside window \\
+CSTARJ042931.75-893647 & 04:29:31.75 & -89:36:47 & r & ... & 481.773285 & 0.151 & 0.779 &   no star in g \\
+CSTARJ010728.36-885510 & 01:07:28.36 & -88:55:10 & r & ... & 534.605530 & 0.215 & 0.151 & outside window \\
+CSTARJ022220.06-875619 & 02:22:20.06 & -87:56:19 & r & ... & 485.373688 & 0.290 & 0.283 & outside window \\
+CSTARJ053807.80-875538 & 05:38:07.80 & -87:55:38 & r & ... & 506.498016 & 0.370 & 0.389 & outside window \\
+CSTARJ090738.25-884334 & 09:07:38.25 & -88:43:34 & r & ... & 527.660156 & 0.076 & 0.564 & outside window \\
+CSTARJ210122.50-874600 & 21:01:22.50 & -87:46:00 & r & ... & 531.661865 & 0.320 & 0.162 & outside window \\
+CSTARJ141243.70-883232 & 14:12:43.70 & -88:32:32 & r & M7V & 506.367676 & 0.399 & 0.154 & outside window \\
+\hline
+\end{tabular}
+\label{tb:flare}
+\end{table}
+\end{landscape}
+
+
+\subsection{Flare Search}
+We identified 10, 10 and 9 flare events in \textit{i, g} \& \textit{r}, respectively leading to a total of 29 flares throughout the nearly $3000$ combined hours of observations between 2009 and 2010. This leads to a total flaring rate for the entire CSTAR field of $7\pm1\times10^{-7}$ flares/hr. Details for each flare event are shown in Table~\ref{tb:flare} and Figure~\ref{fig:flares} shows light curves of 9 events of varying amplitude and length. Of the stars which could have been visible in both \textit{g} \& \textit{r} we found only one object. The remaining events either did not have a counterpart in the other band, took place at a time where no data was available in the other band or experienced a data drop out at the time of the flare.
+
+The normalized flare rates for the searched spectral types, K5V-M9V, are  $5\pm4\times10^{-7}$ flares/hr (Late K) and $2\pm1\times10^{-6}$  flares/hr (M) as shown in Fig~\ref{fig:rate}. All other stars in our sample were shown to flare at a rate of $6\pm1\times10^{-7}$ flares/hr. We found 6 stars in this spectral range to flare, which is consistent with our expectations of $1-4$ flaring K/M dwarfs from the previously-defined flaring fraction. These rates are in contention with previous studies of the flare rates for these spectral types, $\approx 4\times10^{-4}-10^{-1}$ flares/hr \citep{Davenport2012, Hawley2014}. These rates were shown to be highly dependent on the activity level of the star.
+
+We hypothesize our flare rates are lower because of a combination of factors. First, the relative age of stars in the halo is typically older than that of stars in the disk \citep{Jofre2011}. \citet{Kowalski2009} showed the flare rate was highly dependent on galactic latitude. As the CSTAR field is centered at ($l\approx303$, $b\approx-27^{\circ}$) it is dominated by halo stars \citep{Wang2013, Oelkers2015}. Studies of stellar rotation and activity relations for diverse stellar ages have shown older stars decrease their magnetic activity as they age \citep{Garcia2014}. 
+
+\begin{figure}[H]
+\begin{center}
+\singlespace
+\includegraphics[width=\textwidth]{./figures/section3/pass_flare.pdf}
+\end{center}
+\singlespace
+\caption{Flare Candidates}  Light curves of 9 flaring events, with various lengths and amplitudes, all flagged as genuine in our search. Each panel shows a particular technique to remove ghost contamination. \textit{Top Left}: The flare appears in both \textit{g} \& \textit{r}. \textit{Bottom and Middle Left}: The flare does not occur in the previous or next sidereal day, suggesting a genuine event. \textit{Right}: The flares do not appear to coincide with any noticeable features when phased on the sidereal day. Red points in the phase-folded light curve denote all photometric points visible in the left panel. All light curves have been binned in 10-minute intervals. \label{fig:flares}
+\end{figure}
+Therefore an older, magnetically inactive halo population would flare at a lower rate than a more diversely aged population as is found in the disk (i.e. stars in the Kepler field \citep{Hawley2014}). Similarly, \citet{Hawley2014} showed inactive M-dwarfs could have flare rates lower than active M-dwarfs by 2-3 orders of magnitude.  
+
+Finally, a major contributing factor to our lower flare rate is that we are biased against detecting \textit{all} flares due to the rampant ghosting events in the CSTAR data sets. Many of the flares contributing to the flare rates in previous work were found with significantly more precise photometry, from the Kepler space telescope, and had durations $<1$~hr, a timescale identical to ghost reflections \citep{Hawley2014, Davenport2014, Lurie2015}. We corrected our flaring rate for ghost contamination by subtracting our expected contamination rate for flares with timescales less than 45 minutes as determined in \S~\ref{subsec:flr} but because we made many cuts on simultaneous events, sidereal phase timing and flare duration we likely removed \textit{bona-fide} flares from our sample. If the telescope had returned more simultaneous, multi-band data during the 2009 or 2010 seasons we would be able to better constrain, identify and categorize more flare candidates.
+
+
+
+\begin{figure}[H]
+\begin{center}
+\singlespace
+\includegraphics[width=\textwidth]{./figures/section3/flares.pdf}
+\end{center}
+\singlespace
+\caption{Flare Rates with CSTAR}   \textit{Top Left}: Flare timing vs. flare amplitude for all events flagged as genuine. The dashed line shows the maximum length of ghosting events. Any event to the right of this line is likely to \textit{not} be a contaminating ghost. \textit{Top Right}: Selection of dwarf stars using 2MASS J-H vs H-K colors and the stellar locus of \citet{Pecaut2013}. Stars with 2MASS colors falling within $1\sigma$ of a stellar loci and with 2MASS photometric error $<0.2$~mag were selected as dwarf candidates. The reddening vector shown is based on the extinction law from \citet{Fitzpatrick1999}. \textit{Bottom Left}: Histograms for the total number of late K and M dwarfs in the CSTAR data set. The red histogram shows flaring stars in our sample. \textit{Bottom Right}: Normalized flare rates derived from our observations and errors are based on Poisson statistics. All results are consistent given their uncertainties. \label{fig:rate}
+\end{figure}
+
+\subsection{Transient Search}
+We identified 331, 53 and 15 possible transient events in \textit{i, g} and \textit{r}, respectively. However, throughout our analysis it became quite clear many systematic effects can mimic transients, specially at low flux levels. After studying the timing of each event as well as its duration and amplitude, it became clear that \textit{none} of the candidates could be distinguished from known detector systematics. Many identified transients either showed no variation in their light curve at the expected time or exhibited signals which mimicked those found in \S~\ref{subsec:ghosts} at nearly the same fractional sidereal day ($\pm$ 0.01). Other transients occurred only once during the season, but were found to occur at the same time as other events elsewhere in the focal plane. Figure~\ref{fig:bdtran} shows examples of such impostors. While no events were identified, our null result is consistent with the probability of a supernova being less than $2\%$ based on CSTAR's limiting magnitude and FoV.
+
+We find the design of CSTAR may not have been well suited for blind transient searches due to the large pixel scale ($\sim15''$) and lack of a tracking mechanism. The large pixel scale forced many sources into the same pixel. The pixel scale also exacerbated the difficulty of locating the source of the transient event in a possible $1.25'$ radius. The large pixel scale also created a shallow limiting magnitude (13.5 in \textit{g}\&\textit{r} and 14.5 in \textit{i}) which greatly reduced the telescope's ability to detect Galactic and extragalactic transients. Furthermore, the lack of a tracking mechanism increased the number of sources affected by ghosting events. We find these events to be so common and wide spread that if a short-duration transient event were to be detected with no other known counterpart it is more likely the event is caused by an asymmetric reflection than truly being astrophysical in origin. 
+
+\begin{figure}[H]
+\begin{center}
+\singlespace
+\includegraphics[width=\textwidth]{./figures/section3/bad_tran.pdf}
+\end{center}
+\singlespace
+\caption{Impostor Transients}   \textit{Top Left}: The light curve of a transient candidate in \textit{i} identified in a detection frame with a $\sim 2$~mag variation that lasted for 0.01~d. \textit{Top Right}: The same transient from the left phased on the sidereal day. The red data points mark the data points from the top left panel. A similar variation is seen near the same sidereal phase and therefore excludes the transient as a real candidate. \textit{Bottom Panels}: Two separate transient candidates showing a sudden increase in flux that remains constant for the duration of the event. Both candidates are ruled out because of the simultaneous occurrence of the events. The typical error and (x,y) location is shown on the right of each panel.\label{fig:bdtran}
+\end{figure}
+
+\section{Discussion}
+We have presented a technique useful for the reduction of crowded, defocused data. The 2009 Antarctic winter season observations by CSTAR at Dome A suffered from intermittent filter frosting, premature power failures and a defocused PSF. Even with these technical issues the system obtained a total of $\sim 10^6$ scientifically-useful images in the 3 operating bands.
+
+Each frame underwent extensive pre-processing including bias subtraction, flat fielding, background subtraction, electronic fringe subtraction and frame alignment. We used a combination of difference imaging with a delta function kernel and aperture photometry to compensate for the highly crowded, blending and defocused frames. We applied the Trend Fitting Algorithm and an alternative de-aliasing trend removal technique to correct for systematics resulting from detector variations or improper kernel fits. 
+
+We applied 3 variability tests, one periodicity search and one transit search to all light curves. We recovered 45 variable stars with highly significant variation within our magnitude limit ($g\sim r \sim 13.5$~mag, $i\sim15$~mag) and identified 37 previously undiscovered variables in CSTAR data sets. Given the robust capabilities of the code and its proven ability to identify variable and eclipse events we are confident in the codes abilities to identify eclipses in variable objects. We therefore have elected to use this routine to reduce the wide-field data of young stellar associations as described in \S4.
