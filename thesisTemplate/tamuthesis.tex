@@ -11,22 +11,21 @@
 \documentclass[12pt,aas_macros]{report} 
 \usepackage[letterpaper]{geometry} \geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.4in,rmargin=1.15in} 
 \usepackage[doublespacing]{setspace} 
-\usepackage{tocloft} 
+\usepackage[subfigure]{tocloft} 
 \usepackage[rm, tiny,center, compact]{titlesec} 
 \usepackage{indentfirst} 
 \usepackage{etoolbox} 
 \usepackage{tocvsec2} 
 \usepackage[titletoc]{appendix} 
-\usepackage{appendix} 
 \usepackage{tamuconfig} 
 \usepackage{rotating} 
 \usepackage[round]{natbib} 
 \usepackage{aas_macros} 
-\usepackage{epsfig} 
 \usepackage{graphicx} 
 \usepackage{float} 
 \usepackage{booktabs} 
-\usepackage{threeparttable} 
+\usepackage{threeparttable}
+\usepackage{longtable} 
 \usepackage{amsmath}	% Advanced maths commands
 \usepackage{amssymb}	% Extra maths symbols
 \usepackage{mathrsfs}	% Extra extra math symbols
@@ -34,6 +33,7 @@
 \usepackage[hang,flushmargin]{footmisc} 
 \usepackage{color} 
 \usepackage{multirow}
+\usepackage{subfig}
 
 
 %%%%% AUTHORS - PLACE YOUR OWN COMMANDS HERE %%%%%
@@ -104,16 +104,17 @@
 
 % This is simply a file that formats and adds your titlepage, please do not edit this unless you have a specific need. .
 \include{abstract} 
-\include{dedication} 
+%\include{dedication} 
 \include{acknowledgements} 
 \include{nomenclature}
 
 \include{lists} 
 
 % This is simply a file that formats and adds your toc, lof, and lot, please do not edit this unless you have a specific need. .
-\include{section1} 
-\include{section2} 
-\include{section3}
+\include{introduction} 
+\include{chapter1} 
+\include{chapter2}
+\include{chapter3}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \let\oldbibitem\bibitem 
