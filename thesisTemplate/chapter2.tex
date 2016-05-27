@@ -69,8 +69,8 @@ The Mitchell Spectrograph (MS; formerly known as VIRUS-P; \citealt{Hill2008a}) i
 There are two spectral configurations available on MS, a blue setup, 3600-5800 \AA\ and a red setup, 4600-6800 \AA. In addition, there are four volume phase holographic gratings available to disperse the light. For the purpose of this work, the lowest resolution, $\sim5$\AA, grating is used. Using $1\times1$ binning, this translates into a spectral dispersion of $\sim1.11$ \AA\ pixel$^{-1}$. 
 
 \subsection{Observations} 
-\begin{figure}
-	\includegraphics[width=\textwidth]{./figures2/pointing.pdf} 
+\begin{figure}[t]
+	\includegraphics[width=0.6\textwidth]{./figures2/pointing.pdf} 
 	\caption{SDSS r-band image of an optically selected galaxy cluster selected from the SDSS DR8 data. The field is centered on the BCG, which has a measured spectroscopic redshift from SDSS of $z = 0.277$. The large black circle shows the region $R<0.5$ Mpc ($r<2\farcm3$). Nearly all galaxies within this region are associated with the cluster. The four MS fields (and fiber positions for the first dither position) are overdrawn on the field, illustrating how we survey each cluster.} \label{2fig:tiles} 
 \end{figure}
 
@@ -89,7 +89,7 @@ The result of this process is a row-stacked spectrum where each of the 246 fiber
 
 A simple sky subtraction scheme is used to remove the majority of sky contamination. Because the majority of fibers for any single pointing are empty, we use a $3\sigma$ clipped median selection to identify sky fibers and a simple mean to combine them. The result is then subtracted from every fiber. This adequately removes the bulk of sky emission lines, but often fails to completely remove the \hbox{\ion{O}{i}} line at 5577~\AAA. This line is masked throughout the determination of redshifts.
 
-\begin{figure}
+\begin{figure}[t]
 \subfloat{%
   \includegraphics[width=0.5\textwidth]{./figures2/c203p83+41p0_mosaic.pdf}
 }
@@ -126,8 +126,8 @@ Because of the large number of fiber pointings, only fibers which overlap with S
 \subsection{Redshift Catalog}\label{2sec:redshift catalog} 
 A redshift solution is determined for each galaxy by cross-correlating \citep{Tonry1979} each of the spectra with six galaxy template spectra from the SDSS\footnote{http://classic.sdss.org/dr7/algorithms/spectemplates/index.html} using the \textsc{xcsao} task in the \textsc{iraf} \textsc{rvsao} package \citep{Kurtz1992, Kurtz1998}. For each galaxy we select the spectral template with the highest cross-correlation coefficient and visually inspect the fit. During visual inspection a ``Q'' or quality flag is assigned. High-confidence redshifts, clearly determined by at least two obvious features (such as the Ca H, K and E absorption features), receive $Q=0$, spectra with only a single strong feature (\eg, \hbox{[\ion{O}{ii}]} emission) are assigned $Q=1$ and redshifts resulting from enigmatic features are assigned $Q=2$. Figure~\ref{2fig:c203p83+41p0} shows representative example spectra for each of the $Q$ flags. For the determination of cluster properties we only consider $Q=0$ and $Q=1$ quality flags. 
 
-\begin{figure}
-	\includegraphics[width=\textwidth]{figures2/redshiftHist.pdf} 
+\begin{figure}[t]
+	\includegraphics[width=0.6\textwidth]{figures2/redshiftHist.pdf} 
 	\caption{Redshift recovery fractions across all clusters. The bar heights represent the fraction of the total redshifts with the respective $Q$ value at a particular magnitude. For example, $\sim 40\%$ of the $Q=2$ redshifts have $m_r = 20.5-21$. We find a general decrease in redshift quality with increasing $m_r$. } \label{2fig:redshiftHist} 
 \end{figure}
 
@@ -281,8 +281,8 @@ We compute two statistics to evaluate how well our model classifies the galaxies
 
 This is a difficult problem. Figure~\ref{2fig:redshiftHist} shows there is significant overlap between the $Q$ flags. In our testing, we find no combination of features which wholly separates the $Q$ flags, providing a high level of confusion for the RF. We find similar levels of recall and precision for other ML classification methods besides RF.
 
-\begin{figure}
-	\includegraphics[width=\textwidth]{figures2/buzzardQHist.pdf} 
+\begin{figure}[t]
+	\includegraphics[width=0.6\textwidth]{figures2/buzzardQHist.pdf} 
 	\caption{Quality flag ($Q$) assignments for the 2.7 million Buzzard catalog galaxies with $\sdssg< 22$ mag. The bar heights represent the fraction of the total redshifts with the respective $Q$ value at a particular magnitude. The distributions resemble the actual observations in Figure \ref{2fig:redshiftHist}. See the text for a detailed explanation of the classification process.} \label{2fig:buzzardHist} 
 \end{figure}
 
@@ -296,8 +296,8 @@ Because the cluster masses presented with this method are predictions based on t
 The prediction intervals for our RF estimator as based on the method of quantile regression forests \citep{Meinshausen2006}. The basic principle is that we record all response variables (the predictions), not simply the mean. This allows us to give the prediction as the full conditional probability distribution of all possible predictions. For brevity, we quote predicted masses as the median prediction and the 68\% prediction interval as the square root of the second moment of the full conditional probability distribution.
 
 \subsection{The Importance of Training Features}\label{2sec: training features}
-\begin{figure}
-	\includegraphics[width=\textwidth]{figures2/buzzardCorner.pdf}
+\begin{figure}[t]
+	\includegraphics[width=0.6\textwidth]{figures2/buzzardCorner.pdf}
 	\caption{Corner plot of the \emph{training} data with features $\sigma$ and $z$. The corner plots shows all of the one and two dimensional posterior probability distributions used to determine the correct cluster mass. The colored circles show the position in the Log $\sigma$-redshift plane of the ten clusters in this sample.}
 	\label{2fig:buzzardCorner}
 \end{figure}
