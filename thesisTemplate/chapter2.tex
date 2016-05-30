@@ -40,7 +40,7 @@ We select clusters at $z=0.2-0.3$ using two different methods and for two differ
 
 \begin{landscape}
 	\begin{table}
-		\caption{Basic properties of the ten galaxy clusters targeted with the MS: Column 1: Our internal cluster name; Column 2: An alternative cluster name; Column 3: The right ascension of the cluster; Column 4: The declination of the cluster; Column 5: the nominal (often photometric) cluster redshift; Column 6: The date of our observations.} 
+		\caption[Basic properties of the ten galaxy clusters targeted with the MS.]{Basic properties of the ten galaxy clusters targeted with the MS: Column 1: Our internal cluster name; Column 2: An alternative cluster name; Column 3: The right ascension of the cluster; Column 4: The declination of the cluster; Column 5: the nominal (often photometric) cluster redshift; Column 6: The date of our observations.}
 		\begin{tabular}
 			{lccccc} \hline Cluster & Alt. Name & RA (J2000) & DEC (J2000) & $z$ & Obs. Date\\
 			(1) & (2) & (3) & (4) & (5) & (6) \\
@@ -73,8 +73,7 @@ There are two spectral configurations available on MS, a blue setup, 3600-5800 \
 	\begin{center}
 		\includegraphics[width=0.6\textwidth]{./figures2/pointing.pdf} 
 	\end{center}
-	\caption{Example cluster observations}
-	SDSS r-band image of an optically selected galaxy cluster selected from the SDSS DR8 data. The field is centered on the BCG, which has a measured spectroscopic redshift from SDSS of $z = 0.277$. The large black circle shows the region $R<0.5$ Mpc ($r<2\farcm3$). Nearly all galaxies within this region are associated with the cluster. The four MS fields (and fiber positions for the first dither position) are overdrawn on the field, illustrating how we survey each cluster. \label{2fig:tiles} 
+	\caption[Example cluster observations]{SDSS r-band image of an optically selected galaxy cluster selected from the SDSS DR8 data. The field is centered on the BCG, which has a measured spectroscopic redshift from SDSS of $z = 0.277$. The large black circle shows the region $R<0.5$ Mpc ($r<2\farcm3$). Nearly all galaxies within this region are associated with the cluster. The four MS fields (and fiber positions for the first dither position) are overdrawn on the field, illustrating how we survey each cluster.} \label{2fig:tiles} 
 \end{figure}
 
 We use MS to target the galaxy clusters using the 5 \AAA\ grating covering a wavelength range of $4400 - 6600\AAA$. With this instrumental setup and for galaxies $z = 0.2-0.3$, we will cover the Ca H\&K, \hbox{\ion{Fe}{i}} ($\lambda 4383$), H-$\delta$, H-$\gamma$ and H-$\beta$ absorption features. Additionally, we cover emission of the \hbox{[\ion{O}{ii}]} ($\lambda\lambda 3727,3729$) doublet, H-$\beta$, and \hbox{[\ion{O}{iii}]} ($\lambda\lambda 4960,5008$), which allows for the identification of actively star-forming galaxies.
@@ -100,8 +99,7 @@ A simple sky subtraction scheme is used to remove the majority of sky contaminat
 \subfloat{%
   \includegraphics[width=0.5\textwidth]{./figures2/spectrum.pdf}
 }
-	\caption{SDSS \sdssr\ image of cluster c203p83+41p0 and spectra quality examples.}
-    \emph{Left:} SDSS \sdssr\ image of cluster c203p83+41p0. The symbols show the position of observed galaxies. Blue circles indicate galaxies with $Q=0$ or $Q=1$ spectroscopic redshifts, red squares indicate galaxies where a redshift could not be reliably determined, and the orange diamond corresponds to galaxies with pre-existing redshifts from the SDSS. \textit{Right:} Example spectra, with major features identified, showing the three quality flags. $Q=0$ represents the best quality spectra and $Q=2$ the poorest quality. $Q=0$, and $Q=1$ are sufficient to measure galaxy redshifts. 
+    \caption[SDSS \sdssr\ image of cluster c203p83+41p0 and spectra quality examples]{SDSS \sdssr\ image of cluster c203p83+41p0. The symbols show the position of observed galaxies. Blue circles indicate galaxies with $Q=0$ or $Q=1$ spectroscopic redshifts, red squares indicate galaxies where a redshift could not be reliably determined, and the orange diamond corresponds to galaxies with pre-existing redshifts from the SDSS. \textit{Right:} Example spectra, with major features identified, showing the three quality flags. $Q=0$ represents the best quality spectra and $Q=2$ the poorest quality. $Q=0$, and $Q=1$ are sufficient to measure galaxy redshifts.} 
 	\label{2fig:c203p83+41p0}
 \end{figure}
 
@@ -125,7 +123,7 @@ The analysis of our reduced spectra occurs in two stages. First we derive indivi
 
 Individual galaxy selection is done through cross matching the IFU fiber sky positions with galaxies selected from the SDSS. We select all galaxies brighter than 22 mag in \sdssg\ within $3'$ of the BCG in each cluster. For each galaxy we query the SDSS for photometry in all SDSS bands (\sdssu\sdssg\sdssr\sdssi\sdssz), photometric redshift, and any spectroscopic redshift. 
 
-Because of the large number of fiber pointings, only fibers which overlap with SDSS sources are considered for redshift analysis. The left panel of Figure \ref{2fig:c203p83+41p0} shows cluster c203p83+41p0 with the SDSS detections and measured redshifts overlaid. Orange diamonds are galaxies with SDSS available redshifts. The blue circles and red squares correspond to galaxies where a redshift was and was not determined from the observed spectra. See Figure~\ref{2fig:montage} for similar representation of the remaining nine clusters.
+Because of the large number of fiber pointings, only fibers which overlap with SDSS sources are considered for redshift analysis. The left panel of Figure \ref{2fig:c203p83+41p0} shows cluster c203p83+41p0 with the SDSS detections and measured redshifts overlaid. Orange diamonds are galaxies with SDSS available redshifts. The blue circles and red squares correspond to galaxies where a redshift was and was not determined from the observed spectra. See Figure~\ref{fig:montage} for similar representation of the remaining nine clusters.
 
 \subsection{Redshift Catalog}\label{2sec:redshift catalog} 
 A redshift solution is determined for each galaxy by cross-correlating \citep{Tonry1979} each of the spectra with six galaxy template spectra from the SDSS\footnote{http://classic.sdss.org/dr7/algorithms/spectemplates/index.html} using the \textsc{xcsao} task in the \textsc{iraf} \textsc{rvsao} package \citep{Kurtz1992, Kurtz1998}. For each galaxy we select the spectral template with the highest cross-correlation coefficient and visually inspect the fit. During visual inspection a ``Q'' or quality flag is assigned. High-confidence redshifts, clearly determined by at least two obvious features (such as the Ca H, K and E absorption features), receive $Q=0$, spectra with only a single strong feature (\eg, \hbox{[\ion{O}{ii}]} emission) are assigned $Q=1$ and redshifts resulting from enigmatic features are assigned $Q=2$. Figure~\ref{2fig:c203p83+41p0} shows representative example spectra for each of the $Q$ flags. For the determination of cluster properties we only consider $Q=0$ and $Q=1$ quality flags. 
@@ -134,9 +132,7 @@ A redshift solution is determined for each galaxy by cross-correlating \citep{To
 	\begin{center}
 		\includegraphics[width=0.6\textwidth]{figures2/redshiftHist.pdf}
 	\end{center}
-	 
-	\caption{Redshift recovery fractions across all clusters.} 
-	The bar heights represent the fraction of the total redshifts with the respective $Q$ value at a particular magnitude. For example, $\sim 40\%$ of the $Q=2$ redshifts have $m_r = 20.5-21$. We find a general decrease in redshift quality with increasing $m_r$. \label{2fig:redshiftHist} 
+	\caption[Redshift recovery fractions across all clusters]{Redshift recovery fractions across all clusters. The bar heights represent the fraction of the total redshifts with the respective $Q$ value at a particular magnitude. For example, $\sim 40\%$ of the $Q=2$ redshifts have $m_r = 20.5-21$ (mag). We find a general decrease in redshift quality with increasing $m_r$ (mag). } \label{2fig:redshiftHist} 
 \end{figure}
 
 Figure \ref{2fig:redshiftHist} shows the breakdown of $Q$ values for the redshifts across all clusters. We compute 447 redshifts, of which 44\% have $Q=0$, 27\% have $Q=1$ and 29\% have $Q=2$. We find a general decrease in $Q$ flag with increasing $m_r$. Approximately 30\% of the $Q=0$ redshifts correspond to galaxies with $19 < m_r <20$ whereas about 40\% $Q=2$ galaxies have $m_r = 20.5-21$.
@@ -144,7 +140,7 @@ Figure \ref{2fig:redshiftHist} shows the breakdown of $Q$ values for the redshif
 \begin{landscape}
 	\singlespace
 	\begin{longtable}{ccccccccccc} 
-	\caption{Spectroscopic redshifts for galaxies in c203p8+41p0 measured with the MS: Column 1: The telescope pointing; Column 2: The dither position; Column 3: The fiber number; Column 4: The right ascension of the galaxy; Column 5: The declination of the galaxy; Column 6: The the observed SDSS \sdssr\ magnitude; Column 7: The galaxy redshift; Column 8: The redshift $Q$ flag; Column 9: The galaxy membership information; Column 10: The clustercentric radial distance; Column 11: The LOSV of the galaxy with respect to the cluster. See the appendix for similar tables for the remaining nine clusters.}\\
+	\caption[Spectroscopic redshifts for galaxies in c203p8+41p0.]{Spectroscopic redshifts for galaxies in c203p8+41p0: Column 1: The telescope pointing; Column 2: The dither position; Column 3: The fiber number; Column 4: The right ascension of the galaxy; Column 5: The declination of the galaxy; Column 6: The the observed SDSS \sdssr\ magnitude; Column 7: The galaxy redshift; Column 8: The redshift $Q$ flag; Column 9: The galaxy membership information; Column 10: The clustercentric radial distance; Column 11: The LOSV of the galaxy with respect to the cluster. See the appendix for similar tables for the remaining nine clusters.}\\
 	\hline
 	tile & dither & fiber & RA (J2000) & DEC (J2000) & \sdssr\ (mag) & redshift & $Q$ & Member & R (Mpc) & LOSV (\kms) \\
 	(1) & (2) & (3) & (4) & (5) & (6) & (7) & (8) & (9) & (10) & (11) \\
@@ -293,8 +289,7 @@ This is a difficult problem. Figure~\ref{2fig:redshiftHist} shows there is signi
 	\begin{center}
 		\includegraphics[width=0.6\textwidth]{figures2/buzzardQHist.pdf}
 	\end{center}
-	\caption{Quality flag ($Q$) assignments for the 2.7 million Buzzard catalog galaxies with $\sdssg< 22$ mag.} 
-	The bar heights represent the fraction of the total redshifts with the respective $Q$ value at a particular magnitude. The distributions resemble the actual observations in Figure \ref{2fig:redshiftHist}. See the text for a detailed explanation of the classification process. \label{2fig:buzzardHist} 
+	\caption[Quality flag assignments for the 2.7 million Buzzard catalog galaxies]{Quality flag ($Q$) assignments for the 2.7 million Buzzard catalog galaxies with $\sdssg< 22$ mag. The bar heights represent the fraction of the total redshifts with the respective $Q$ value at a particular magnitude. The distributions resemble the actual observations in Figure \ref{2fig:redshiftHist}. See the text for a detailed explanation of the classification process.} \label{2fig:buzzardHist} 
 \end{figure}
 
 We assign each galaxy in the Buzzard catalog with $z<0.5$ and $\sdssg< 22$ mag a $Q$ flag using the optimized RF classifier trained with all 447 observations. Figure \ref{2fig:buzzardHist} shows the $Q$ flag distribution as a function of \sdssr\ magnitude. The total distribution of the 2.7 million $Q$ flags is 45.6\% $Q=0$, 24.7\% $Q=1$, and 29.6\% $Q=2$. This distribution closely resembles the fractions of the actual observations with some $Q=1$ galaxies misclassified as $Q=0$. Because we use galaxies with either $Q=0$ or $Q=1$ this is does not significantly bias our analysis.
@@ -311,8 +306,7 @@ The prediction intervals for our RF estimator as based on the method of quantile
 	\begin{center}
 		\includegraphics[width=0.6\textwidth]{figures2/buzzardCorner.pdf}
 	\end{center}
-	\caption{Corner plot of the \emph{training} data with features $\sigma$ and $z$.} 
-	The corner plots shows all of the one and two dimensional posterior probability distributions used to determine the correct cluster mass. The colored circles show the position in the Log $\sigma$-redshift plane of the ten clusters in this sample.
+	\caption[Corner plot of the \emph{training} data with features $\sigma$ and $z$.]{Corner plot of the \emph{training} data with features $\sigma$ and $z$. The corner plots shows all of the one and two dimensional posterior probability distributions used to determine the correct cluster mass. The colored circles show the position in the Log $\sigma$-redshift plane of the ten clusters in this sample.}
 	\label{2fig:buzzardCorner}
 \end{figure}
 
@@ -333,8 +327,7 @@ The goal of this work to perform a practical test of some of the potential appli
 \begin{figure}
 	\centering 
 	\includegraphics[height=0.75\textheight]{figures2/MLcomparison_shifty.pdf}
-	\caption{ML based cluster mass predictions} 
-	Mass predictions for the power law scaling relation (Equation~\ref{2eq:power law}) and the ML based technique with different input features as a function of true cluster mass. The bottom row of panels shows the fractional error (Equation~\ref{2eq: fractional error}) also as a function of true cluster mass. The solid black line shows the 1:1 relation. The solid, colored line is the median predicted mass for the targeted observing, and the colored, dashed line is the median recovered mass for the HETDEX-like observations. The shaded regions represent the 68\% scatter around the median values. \label{2fig: ML comparison} 
+	\caption[ML based cluster mass predictions]{Mass predictions for the power law scaling relation (Equation~\ref{eq:power law}) and the ML based technique with different input features as a function of true cluster mass. The bottom row of panels shows the fractional error (Equation~\ref{eq: fractional error}) also as a function of true cluster mass. The solid black line shows the 1:1 relation. The solid, colored line is the median predicted mass for the targeted observing, and the colored, dashed line is the median recovered mass for the HETDEX-like observations. The shaded regions represent the 68\% scatter around the median values.} \label{2fig: ML comparison} 
 \end{figure}
 
 In \citetalias{Boada2016} we found that the ML based method with the LOSVD ($\sigma$), redshift ($z$) and number of galaxies observed ($N_{gal}$) showed both the smallest bias and scatter over the largest range of cluster masses. This worked well because the training data were selected from a volume of similar size to the survey in question. As discussed previously, we modify our analysis slightly and use the power law based approach (Eqn.~\ref{2eq:power law}) and the $\mathrm{ML}_{\sigma, N_{gal}}$ method to estimate the masses of our ten clusters.
@@ -349,8 +342,7 @@ Using the predicted cluster masses for the Buzzard catalog we can quantify the a
 
 \begin{landscape}
 	\begin{table}
-		\centering 
-		\caption{Summary of derived cluster parameters: Column 1: The cluster name; Column 2: The number of SDSS sources observed; Column 3: The number of $Q=0(1)$ sources; Column 4: The number of member galaxies; Column 5: The redshift of the cluster; Columns 6: The LOSVD; Column 7: The power law predicted cluster mass; Column 8: The ML predicted cluster mass.} 
+		\caption[Summary of derived cluster parameters.]{Summary of derived cluster parameters: Column 1: The cluster name; Column 2: The number of SDSS sources observed; Column 3: The number of $Q=0(1)$ sources; Column 4: The number of member galaxies; Column 5: The redshift of the cluster; Columns 6: The LOSVD; Column 7: The power law predicted cluster mass; Column 8: The ML predicted cluster mass.} 
 		\begin{tabular}
 			{lccccccc} \hline Cluster & Sources & Q=0 (1) & Members & $z_{c}$ & $\sigma$ (\kms) & Log $M_{pred}$/\Msol & Log $M_{pred}$/\Msol \\
 			(1) & (2) & (3) & (4) & (5) & (6) & (7) & (8) \\
@@ -407,8 +399,7 @@ It is important to note, that the cluster mass predictions from the ML methods a
 	\begin{center}
 		\includegraphics[width=\textwidth]{./figures2/massRichness.pdf} 
 	\end{center}
-	\caption{Richness, $\lambda$, versus total cluster mass for the clusters in our sample.} 
-	The solid black like shows our best-fitting relation (Equation~\protect\ref{2eq: best fit}), the dashed line shows the relation from \protect\cite{Farahi2016}, and the dotted line shows the relation from \protect\cite{Rykoff2012}. The gray shaded region corresponds to the 68\% confidence area on our best-fit. We also include stacked WL masses from \protect\cite{Rozo2010} and the high-mass cluster mass estimates of \protect\cite{Sifon2015} for comparison.
+	\caption[Richness versus total cluster mass for the clusters in our sample]{Richness, $\lambda$, versus total cluster mass for the clusters in our sample. The solid black like shows our best-fitting relation (Equation~\protect\ref{2eq: best fit}), the dashed line shows the relation from \protect\cite{Farahi2016}, and the dotted line shows the relation from \protect\cite{Rykoff2012}. The gray shaded region corresponds to the 68\% confidence area on our best-fit. We also include stacked WL masses from \protect\cite{Rozo2010} and the high-mass cluster mass estimates of \protect\cite{Sifon2015} for comparison.}
 \label{2fig:massRichness} 
 \end{figure}
 
