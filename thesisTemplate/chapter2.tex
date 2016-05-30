@@ -426,10 +426,8 @@ for the measurement errors on the $x$ and $y$ variables respectively. We combine
 \end{equation}
 We assume flat priors on $x_i$ so that $p(x_i|\hat{x_i}) = p(\hat{x_i}|x_i)$ and substitute our probability equations from above. We find
 \begin{equation}
-	\begin{split}
-	p(\hat{y_i}|\hat{x_i}) & = \\ 
-	&\frac{1}{\sqrt{2\,\pi\,(\sigma^2 + \sigma_{y,i}^2 + m^2\sigma_{x,i}^2)}}\exp\left(-\frac{[y_i - m\,x_i - b]^2}{2\,(\sigma^2 + \sigma_{y,i}^2 + m^2\sigma_{x,i}^2)}\right)
-	\end{split}
+	p(\hat{y_i}|\hat{x_i}) =
+	\frac{1}{\sqrt{2\,\pi\,(\sigma^2 + \sigma_{y,i}^2 + m^2\sigma_{x,i}^2)}}\exp\left(-\frac{[y_i - m\,x_i - b]^2}{2\,(\sigma^2 + \sigma_{y,i}^2 + m^2\sigma_{x,i}^2)}\right)
 \end{equation}
 which for $\sigma_{x,i}=0$ (no uncertainty on the independent variable) reduces to the familiar form of a Gaussian with a combination of measurement error and intrinsic scatter. We convert this probability function into a likelihood by taking the product of all the individual probabilities,  
 \begin{equation}\label{2eq:like}
