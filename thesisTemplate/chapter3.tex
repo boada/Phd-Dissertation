@@ -20,9 +20,9 @@
 % \renewcommand*{\thefootnote}{\arabic{footnote}}
 % \setcounter{footnote}{0}
 
-This thesis represents the culmination of the work done over the past four years. This final chapter will summarize the lessons learned. Over the coming years, the amount of multi-band imaging of the night sky will grow tremendously. The study of galaxy clusters will certainly benefit from the large array of data, but only if we are able to combine datasets in a meaningful way. This combination will push the boundaries of our knowledge of cluster physics, clusters in their role as cosmological probes, and the usefulness of advanced data analysis techniques. It is the author's hope that this thesis has contributed to this push forward. 
+This thesis represents the culmination of the work done over the past four years, and this final chapter summarizes the lessons learned. Over the coming years, the amount of multi-band imaging of the night sky will grow tremendously. The study of galaxy clusters will certainly benefit from the large array of data, but only if we are able to combine datasets in a meaningful way. This combination will push the boundaries of our knowledge of cluster physics, clusters in their role as cosmological probes, and the usefulness of advanced data analysis techniques. It is the author's hope that this thesis has contributed to this push forward. 
 
-We begin by a summary of the two studies presented here, present a small discuss of different projects possible with a survey like HETDEX, and close with a few questions which remain under active investigation.
+We begin by a summary of the two studies presented here. We, then, present a small discuss of different projects possible with a survey like HETDEX, and close with a few questions which remain under active investigation.
 
 \section{Summary} 
 The work presented here is a study of how a blind spectroscopic survey, such as HETDEX, will be able to recover accurate cluster masses for galaxy clusters below redshift 0.5. We began with a set of simulated observations to explore this question. Our main results from Chapter~\ref{Chapter1} are as follows:
@@ -35,10 +35,10 @@ The work presented here is a study of how a blind spectroscopic survey, such as 
 	\item Once completed, HETDEX will be able to measure the intrinsic scatter in the optical richness-cluster mass relationship for a wide range of cluster masses. The individual cluster mass estimates will remain unparalleled for such a large number and mass range, providing a much needed understanding of the richness-mass relation. This will both improve existing cosmological parameters estimates, which rely on the optical richness as a cluster mass proxy, and provide accurate calibrations for future large-area sky surveys.  
 \end{itemize}
 
-As a followup to this first work, we observe ten galaxy clusters selected from the SDSS to be high mass, and have corresponding richness measurements. Our goal is to provide a practical test to the methods and results presented in the first chapter. Our main results from Chapter 2 are as follows:
+As a followup to the first work, we observe ten galaxy clusters selected from the SDSS to be high mass, and have corresponding richness measurements. Our goal is to provide a practical test to the methods and results presented in the first chapter. Our main results from Chapter 2 are as follows:
 
 \begin{itemize}
-	\item We observe and and provide cluster mass estimates for ten clusters, covering two distinct richness regimes, selected from the SDSS. Using the traditional power law esitmator, we find they range in mass from $(0.52-17.37) \times 10^{14}$ \Msol\ ($M_{200c}$). The majority of these mass estimates correspond well to previously reported estimates using targeted spectroscopy or X-ray observations.
+	\item We observe and and provide cluster mass estimates for ten clusters, covering two distinct richness regimes, selected from the SDSS. Using the traditional power law estimator, we find they range in mass from $(0.52-17.37) \times 10^{14}$ \Msol\ ($M_{200c}$). The majority of these mass estimates correspond well to previously reported estimates using targeted spectroscopy or X-ray observations.
 	
 	\item The machine learning approach to cluster mass estimation, while powerful, is only appropriate when a deep understanding of the data used to train the method is available. This deep understanding is important as to not bias the mass predictions from the machine learning method. While, in this work, the training sample was not appropriate for the clusters observed, the machine learning approach remains highly promising, and potentially a revolutionary tool for modern astronomy.
 	
@@ -68,4 +68,4 @@ The work presented here is only a small piece in the effort to understand how a 
 
 Of course, there is also the deep study of the physics surrounding the clusters themselves, through the study of the ICM \citeeg{Mantz2015}, any active galactic nuclei discovered \citeeg{Kirk2015, Sobral2015}, correlations with other observations \citeeg{Pipino2010}, tests for substructure \citeeg{Yu2015}, and many others. 
 
-It is the authors' hope that this work may be useful to others when conducting their own research, and provide a stepping stone for even more exciting results. In order to promote transparency, and reproducible science, we provide all of the code used to conduct this study at https://github.com/boada/. Regrettably, large file size prevents including the source data with the analysis routines. The authors are happy to provide them, upon request.
+We provide all of the code used to conduct this study at https://github.com/boada. Large file size prevents including the source data with the analysis routines. The authors are happy to provide them, if requested.
