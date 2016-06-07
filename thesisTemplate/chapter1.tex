@@ -38,11 +38,11 @@ While a large portion of the $\sim10^6$ interloping lower redshift galaxies will
 
 It is unclear how a blind spectroscopic survey with an IFU will effect the recovery of galaxy cluster dynamical properties. Unlike many previous large cluster surveys \citeeg{Milvang-Jensen2008, Robotham2011, Sifon2015} which use multi-object spectrographs, the Visible Integral-Field Replicable Unit Spectrograph (VIRUS; \citealt{Hill2012}) used by HETDEX samples the sky in a uniform but sparse way which could excluded member galaxies which would otherwise be included. Secondly, it is not straightforward to use spectroscopic redshifts predominately from emission-line galaxies to interpret the kinematic and dynamical states of the clusters.
 
-\begin{figure}
+\begin{figure}[t]
 	\begin{centering}
 		\includegraphics[width=\textwidth]{figures1/oii_sdss.pdf} 
 	\end{centering}
-	\caption[Illustration of the probability based \hbox{[\ion{O}{ii}]} flux prediction method.]{\textit{Left}: CMD of 503,113 $z<0.2$ galaxies take from the SDSS DR12 where the shading scales with the density of points. The two colored boxes show regions containing potential catalog galaxies. \textit{Right}: Probability histograms of the Log [\ion{O}{ii}] luminosity for the SDSS galaxies located in the two highlighted regions on the right. The [\ion{O}{ii}] luminosities are assigned to catalog galaxies from slice sampling the probability histogram and converted to fluxes using the redshift of each galaxy.}
+	\caption[Illustration of the probability based \hbox{[\ion{O}{ii}]} flux prediction method.]{\textit{Left}: CMD of 503,113 $z<0.2$ galaxies take from the SDSS DR12 where the shading scales with the density of points. The two colored boxes show regions containing potential catalog galaxies. \textit{Right}: Probability histograms of the Log \hbox{[\ion{O}{ii}]} luminosity for the SDSS galaxies located in the two highlighted regions on the right. The \hbox{[\ion{O}{ii}]} luminosities are assigned to catalog galaxies from slice sampling the probability histogram and converted to fluxes using the redshift of each galaxy.}
 	\label{fig: oii sdss} 
 \end{figure}
 
@@ -82,7 +82,7 @@ Figure~\ref{fig: oii sdss} illustrates this process. The numbered boxes in the l
 where $D_L$ is the luminosity distance \citeeg{Hogg1999}.
 
 \subsection{HETDEX}\label{sec: hetdex}
-\begin{figure}
+\begin{figure}[t]
 	\begin{center}
 		\includegraphics[width=0.6\textwidth]{figures1/pointings.pdf} 
 	\end{center}
@@ -152,7 +152,7 @@ As with any predictive analysis it is important to test the model on data that t
 \subsubsection{Probability Based}\label{sec:probability method}
 For internal consistency between this and the ML based method we use 70\% of the clusters to establish a conditional probability density of $P(M_{200c} | \vec{x})$ which we then use as the cluster mass probability density for the remaining clusters with similar features. In this way we, ``train'' the probability density using the existing simulated data, and apply it to the ``test'' sample (the remaining 30\% of the data not used as the training set).
 
-\begin{figure}
+\begin{figure}[t]
 	\begin{centering}
 		\includegraphics[width=\textwidth]{figures1/prob_example.pdf} 
 	\end{centering}
@@ -189,7 +189,7 @@ The prediction intervals here are based on the general method of quantile regres
 Here we explore the cluster member recovery rate and mass estimates for the two observing strategies, Targeted, and Survey. Targeted observations are direct observations of a cluster where each cluster member galaxy, above the detection thresholds (see Section \ref{sec: observations}), is observed. Survey observations mimic the HETDEX observation strategy such that no cluster is directly observed, and only the cluster member galaxies above the detection threshold and within an IFU (see Figure \ref{fig: ifu layout}) are observed.  We discuss the accuracy of cluster dynamical mass derived from both the power law scaling relation (see Equation \ref{eq:power law}) and through the probability and ML methods. We also compare the results from the Targeted and Survey observing strategies to the results of a ``Perfect'' survey, where the redshift of each galaxy, regardless of observational limits, in the cluster is known perfectly.
 
 \subsection{Recovery of Cluster Members}
-\begin{figure}
+\begin{figure}[t]
 	\begin{center}
 		\includegraphics[width=0.8\textwidth]{figures1/recovery.pdf} 
 	\end{center}
@@ -208,7 +208,7 @@ For the Survey observations, the right panel of Figure~\ref{fig: recovery}, all 
 The recovery fractions in Figure~\ref{fig: recovery} are an outcome of the magnitude limit and \hbox{[\ion{O}{ii}]} line-flux limit of the survey. For Perfect observations, we would detect all members across all cluster masses and redshifts. Recovery fractions of clusters located a the low end of the redshift distribution will improve the most by follow-up targeted observations. But generally, the number of members observed (and subsequently more accurate cluster mass estimates) will benefit from follow-up observations regardless of the redshift. So follow-up observations should be tailored to the specific science goal.
 
 \subsection{Mass estimates}
-\begin{figure}
+\begin{figure}[t]
 	\begin{center}
 		\includegraphics[width=\textwidth]{figures1/Probcomparison.pdf} 
 	\end{center}
@@ -232,7 +232,7 @@ We begin with the Perfect knowledge observations. These observations are of the 
 
 For the Targeted and Survey observations the power law predicted cluster masses give $\mu_{bias} =0.135\pm{0.003}$ dex, $\sigma_{bias} = 0.370\pm{0.002}$ and $\mu_{bias} =0.148\pm{0.008}$ dex, $\sigma_{bias} = 0.324\pm{0.006}$ , respectively. So for the clusters that we detect with Survey observations, we obtain similar levels of accuracy as to the Targeted observations, on the average. This does not mean that the Survey observations cannot be improved by Targeted observations. In fact, when comparing only the galaxies which overlap between the two samples the bias and scatter of the Targeted observations is significantly decreased as more cluster member galaxies are detected, better sampling the LOSVD PDF. The Targeted observations performs similarly on the average because many lower mass clusters are included in the sample, increasing the bias of the overall sample.
 
-\begin{figure}
+\begin{figure}[t]
 	\begin{center}
 		\includegraphics[width=\textwidth]{figures1/MLcomparison.pdf}
 	\end{center}
@@ -247,7 +247,6 @@ In both Figures \ref{fig:Probability comparison} and \ref{fig: ML comparison}, w
 where $M_{pred}$ is the predicted cluster mass and $M_{200c}$ is the true cluster mass. Higher values of $\epsilon$ indicate the predicted cluster mass exceeds the true cluster mass.
 
 Qualitatively, the top panels of Figures \ref{fig:Probability comparison} and \ref{fig: ML comparison} show that both the probability based and ML based methods out perform (closer to the black 1:1 relation) the power law method when taking advantage of other cluster observables ($z$, $N_{gal}$, etc.). Generally, we find that the single parameter probability and ML methods perform significantly poorer than the power law method, especially at low cluster masses. When combined with the cluster redshift, the predicted cluster masses are improved, because the range of cluster masses decrease with increasing redshift (see Figure~\ref{fig: recovery}). The final addition of the number of observed galaxies, $N_{gal}$ acts as a type of richness estimate, and significantly improves both the bias and the amount of scatter in the predicted masses.
-
 
 \begin{landscape}
 	\singlespace
