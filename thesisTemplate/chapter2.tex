@@ -15,8 +15,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
-\chapter[\uppercase{Targeted Observations with the VIRUS Prototype Instrument}]{\uppercase{Targeted Observations with the VIRUS Prototype Instrument}\symbolfootnote[1]{Reprinted with permission from ``Introduction: The Importance of Research'' by AUTHOR et al., 2015. The Astrophysical Journal, Volume XYZ, Issue X, article id. XY, XY pp., Copyright 20XX by the American Astronomical Society.} }
-\renewcommand*{\thefootnote}{\arabic{footnote}}
+\chapter[\uppercase{Targeted Observations with the VIRUS Prototype Instrument}]{\uppercase{Targeted Observations with the VIRUS Prototype Instrument}}% \symbolfootnote[1]{Reprinted with permission from ``Introduction: The Importance of Research'' by AUTHOR et al., 2015. The Astrophysical Journal, Volume XYZ, Issue X, article id. XY, XY pp., Copyright 20XX by the American Astronomical Society.} }
+% \renewcommand*{\thefootnote}{\arabic{footnote}}
 \setcounter{footnote}{0}
 
 \section{Introduction} 
@@ -200,7 +200,7 @@ Figure \ref{2fig:redshiftHist} shows the breakdown of $Q$ values for the redshif
 	\end{longtable}
 \end{landscape}
 
-\textsc{xcsao} reports errors on the cross-correlation redshift. Previous work \citeeg{Quintana2000, Sifon2015a} show the cross-correlation velocity uncertainties by up to a factor of two. We report our redshift uncertainties as twice the uncertainty estimated by \textsc{xcsao}.
+While, \textsc{xcsao} reports errors on the cross-correlation redshift, previous work \citeeg{Quintana2000, Sifon2015a} show the cross-correlation velocity uncertainties are underestimated by up to a factor of two. We report our redshift uncertainties as twice the uncertainty estimated by \textsc{xcsao}.
 
 Redshift information, with $Q=0$ or $Q=1$ spectra, for each galaxy are given in Table~\ref{2tbl:VCSJ133520.1+410004.1}. The right panel of Figure~\ref{2fig:VCSJ133520.1+410004.1} shows selected spectra from cluster VCSJ133520.1+410004.1 with corresponding best fitting SDSS template. See the appendix for similar examples from the remaining nine clusters.
 
@@ -229,7 +229,7 @@ To calculate the velocity dispersion in this membership determination method, we
 \begin{equation}
 	\sigma_g = \frac{\sqrt{\pi}}{N(N-1)} \sum_{i=1}^{N-1} w_i g_i
 \end{equation}
-where $N$ is the number galaxies, the weights are $w_i = i(N-i)$ and $g_i = LOSV_{i+1} - LOSV_i$ are the gaps between ordered pairs of radial LOSVs. The aspect  The dispersion estimate is corrected by $1.135$ to account for the $2\sigma$ redshift space cut applied during membership determination \citep{Connelly2012}. We follow this method for the calculation of the dispersion for consistency in member determination only. The final velocity dispersion of each cluster is determined in the following subsection.
+where $N$ is the number galaxies, the weights are $w_i = i(N-i)$ and $g_i = LOSV_{i+1} - LOSV_i$ are the gaps between ordered pairs of radial LOSVs. The dispersion estimate is corrected by $1.135$ to account for the $2\sigma$ redshift space cut applied during membership determination \citep{Connelly2012}. We follow this method for the calculation of the dispersion for consistency in member determination only. The final velocity dispersion of each cluster is determined in the following subsection.
 
 Membership information for the galaxies observed in and around cluster VCSJ133520.1+410004.1 is given in Column 9 of Table~\ref{2tbl:VCSJ133520.1+410004.1}. See the appendix for the membership of the other observed clusters.
 
@@ -311,23 +311,21 @@ The goal of this work to perform a practical test of some of the potential appli
 	\begin{center}
 		\includegraphics[width=0.6\textwidth]{figures2/massCompare.pdf} 
 	\end{center}
-	\caption[PL estimated cluster versus ML predicted cluster mass]{Comparison of the cluster mass estimates for the PL scaling relation (Equation~\ref{2eq:power law}) and the ML based mass predictions. We find the ML method sigificantly underestimates the cluster mass when compared to the PL method. This is due to the ML's reliance on training data which does not wholly represent the our sample of observed clusters.}
+	\caption[PL estimated cluster versus ML predicted cluster mass]{Comparison of the cluster mass estimates for the PL scaling relation (Equation~\ref{eq:power law}) and the ML based mass predictions for the ten clusters in our observed sample. The orange points show the $\mathrm{ML}_{\sigma, N_{gal}}$ predicted cluster masses using the Buzzard catalogs as a training set. The purple points represent $\mathrm{ML}_{\sigma, N_{gal}}$ predictions based on a flattened Buzzard HMF which leads to an improved performance when compared to the PL cluster mass estimates. The solid black line shows the 1:1 relation. See text for a description of the process used to create the three estimates of cluster mass.}
  \label{2fig: ML comparison} 
 \end{figure}
 
 In \citetalias{Boada2016} we find the ML based method with the LOSVD ($\sigma$), redshift ($z$) and number of galaxies observed ($N_{gal}$) showed both the smallest bias and scatter over the largest range of cluster masses. This worked well because the training data were selected from a volume of similar size to the survey in question. As discussed previously, we modify our analysis slightly and use the PL based approach (Eqn.~\ref{2eq:power law}) and the $\mathrm{ML}_{\sigma, N_{gal}}$ method to estimate the masses of our ten clusters. This change in the ML method is the result of the differences in the cosmological volume of the SDSS and the Buzzard at $z\sim2$.  
 
-The PL predicted masses versus the ML predicted masses are shown in Figure~\ref{2fig: ML comparison}. We find that the PL based mass estimates are significantly higher than the ML based predictions, due to the ML relying on the biased training set discussed previously. In \citetalias{Boada2016}, the cluster mass prediction process uses two steps. Firstly the cluster mass is predicted, and then the cluster mass is corrected by considering the bias and scatter of the training data. Here, we choose to not correct the cluster masses predicted by either method due to the dissimilarity between the training data and our observations. During our testing, we find that there are too few training clusters with masses $> 10^{15}$ \Msol\ to place reliable contraints on the bias and scatter. As we discuss below, these high mass cluster constitute the bulk of our sample. Because we are unable to provide these clusters, with bias corrections, we choose to not correct any cluster mass estimate, to facilitate consistency throughout. 
+The PL predicted masses versus the ML predicted masses are shown in Figure~\ref{fig: ML comparison}. The orange points show our $\mathrm{ML}_{\sigma, N_{gal}}$ predicted masses using the cluster abundances as given in the Buzzard catalog. The purple points are the $\mathrm{ML}_{\sigma, N_{gal}}$ estimates when the Buzzard catalog HMF has been flattened. We flatten the HMF by selecting clusters in a range of true mass bins with uniform probability. In true cluster mass bins where there are too few clusters to randomly select the desired number of samples, we generate ``new'' clusters by rotating the viewing angle of each cluster and then re-observing the cluster in the new orientation. This creates a uniform true cluster mass distribution from which we train the ML algorithm. 
+
+The uniform true cluster mass distribution prevents the ML from underestimating the predicted cluster mass due to the underlying distribution of training clusters. If there are many more low and intermediate mass clusters compared to high mass clusters, as is the case in the Buzzard catalogs, the ML algorithm is more likely to predict a low or intermediate cluster mass as those masses are the most represented in the training sample. Because of this change, the $\mathrm{ML}_{\sigma, N_{gal}}$ trained on a flatten HMF predicts cluster masses similar to those of the PL. However, the flattening of the HMF increases the scatter at fixed true cluster mass for training features. This leads to little or no reduction in the amount of scatter in the predicted cluster masses for a fixed true cluster mass when compared to the scatter in the PL estimates of cluster mass.
+
+After considering many of these tradeoffs, we elect to use the PL estimated cluster masses for as the primary cluster mass estimates for the remainder of this study. The $\mathrm{ML}_{\sigma, N_{gal}}$ with a default HMF cannot reliably predict cluster masses for the highest mass clusters, and flattening the HMF, while improving the cluster mass predictions when compared to the PL estimates, does not accurately represent the universe. This underscores the need for a set of training data which accurately represents the cosmological volume being studied.
+
+Furthermore, in \citetalias{Boada2016}, the cluster mass prediction process uses two steps. Firstly the cluster mass is predicted, and then the cluster mass is corrected by considering the bias and scatter of the training data. Here, we choose to not correct the cluster masses predicted by either the PL or ML method due to the dissimilarity between the training data and our observations. During our testing, we find that there are too few training clusters with masses $> 10^{15}$ \Msol, using an unmodified HMF, to place reliable contraints on the bias and scatter. As we discuss below, these high mass cluster constitute the bulk of our sample. Because we are unable to provide these clusters, with bias corrections, we choose to not correct any cluster mass estimate, to facilitate consistency throughout. 
 
 The lack of a bias correction does not strongly effect our analysis as we are primarily interested in the scatter of our cluster masses. The scatter is unaffected as the individual mass estimates are scaled up or down by a common factor.
-
-% The prediction process uses two steps. Firstly, we use a method to predict the individual masses and secondly we correct those masses based on the results of the training data. The upper panel of Figure~\ref{2fig: ML comparison} shows the cluster mass predictions for the Buzzard catalog clusters using the PL and $\mathrm{ML}_{\sigma, N_{gal}}$ approaches. The black diagonal line shows the 1:1 relation. The lower panel of Figure~\ref{2fig: ML comparison} shows the fractional error
-% \begin{equation}\label{2eq: fractional error}
-% 	\epsilon = (M_{pred} - M_{200c})/M_{200c}
-% \end{equation}
-% as a function of true cluster mass, $M_{200c}$ from the simulation.
-%
-% Using the predicted cluster masses for the Buzzard catalog we can quantify the amount of bias, and the scatter about that bias for different bins of predicted cluster mass. The bias is correctable by simply shifting our predicted cluster mass up or down by the appropriate amount. The scatter estimates the overall mass scale uncertainty in each bin of predicted cluster mass. We report the uncertainties in our cluster mass estimates as the sum in quadrature of the either confidence interval of the PL method or the prediction interval from the ML method and the mass scale uncertainty discussed here.
 
 \begin{landscape}
 	\begin{table}
@@ -406,7 +404,7 @@ It is important to note, that the cluster mass predictions from the ML methods a
 	\begin{center}
 		\includegraphics[width=\textwidth]{./figures2/massRichness.pdf} 
 	\end{center}
-	\caption[Richness versus total cluster mass for the clusters in our sample]{Richness, $\lambda$, versus total cluster mass for the clusters in our sample, shown as orange points. The two dashed points are the X-ray selected clusters, and are excluded from the fit. The solid black like shows our best-fitting relation (Equation~\protect\ref{2eq: best fit}) based on the eight high mass clusters, the dashed line shows the relation from \protect\cite{Farahi2016}, and the dotted line shows the relation from \protect\cite{Rykoff2012}. The gray shaded region corresponds to the 68\% confidence area on our best-fit. We also include stacked WL masses from \protect\cite{Rozo2010} and the high-mass cluster mass estimates of \protect\cite{Sifon2015} for comparison.}
+	\caption[Richness versus total cluster mass for the clusters in our sample]{Richness, $\lambda$, versus total PL estimated cluster mass for the clusters in our sample, shown as orange points. The two dashed points are the X-ray selected clusters, and are excluded from the fit. The solid black like shows our best-fitting relation (Equation~\protect\ref{2eq: best fit}) based on the eight high mass clusters, the dashed line shows the relation from \protect\cite{Farahi2016}, and the dotted line shows the relation from \protect\cite{Rykoff2012}. The gray shaded region corresponds to the 68\% confidence area on our best-fit. We include stacked WL masses from \protect\cite{Rozo2010}, the high-mass cluster mass estimates of \protect\cite{Sifon2015} and our $\mathrm{ML}_{\sigma, N_{gal}}$ predicted cluster masses for comparison.}
 \label{2fig:massRichness} 
 \end{figure}
 
