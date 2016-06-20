@@ -30,7 +30,7 @@ The Hobby Eberly Dark Energy Experiment (HETDEX; \citealt{Hill2008}) is a forthc
 
 In this chapter, we present a pilot study of ten massive galaxy clusters using integral field spectroscopy with the Mitchell Spectrograph as a pilot program for HETDEX. The goal of this study is to obtain spectroscopic redshifts of the individual cluster galaxies, determine the velocity dispersion and to infer each cluster's dynamical mass. This allows us to compare the inferred mass with other mass estimators (\eg, the clusters in this sample have deep \textit{Chandra} or \textit{XMM-Newton} X-ray data, and richness measurements) with the aim of better characterizing the scatter in the richness-mass relation, $\sigma_{M|\lambda}$.
 
-The layout of this chapter is the following. In Section~\ref{2sec:design} we discuss the target selection and the setup of the Mitchell Spectrograph used to conduct the observations. Section~\ref{2sec:data reduction} describes the methods and tools used to reduce the observations. We present our redshift catalog, cluster members and cluster dynamical properties in Section~\ref{2sec:analysis}. We discuss a machine learning based alternative to a traditional power law estimate of cluster mass in Section~\ref{2sec:ML methods} In Section~\ref{2sec:results}, we compare and discuss the different mass estimations and remark on the applicability of these methods for the study of the optical richness-cluster mass relationship.  Finally, we summarize this work in Section~\ref{2sec:summary}.
+The layout of this chapter is the following. In Section~\ref{2sec:design} we discuss the target selection and the setup of the Mitchell Spectrograph used to conduct the observations. Section~\ref{2sec:data reduction} describes the methods and tools used to reduce the observations. We present our redshift catalog, cluster members and cluster dynamical properties in Section~\ref{2sec:analysis}. We discuss a machine learning based alternative to a traditional power law estimate of cluster mass in Section~\ref{2sec:ML methods} In Section~\ref{2sec:results}, we compare and discuss the different mass estimations and remark on the applicability of these methods for the study of the optical richness-cluster mass relationship.  Finally, we summarize this work in Section~\ref{sec:summary}.
 
 Throughout this chapter, we adopt the following cosmological model from the Buzzard simulations (see Section~\ref{2sec:ML methods}): $\Omega_\Lambda = 0.714$, $\Omega_M = 0.286$, and $H_0= 70$ \kms \mpc, assume a Chabrier initial mass function (IMF; \citealt{Chabrier2003}), and use AB magnitudes \citep{Oke1974}.
 
@@ -114,34 +114,36 @@ The analysis of our reduced spectra occurs in two stages. First we derive indivi
 Individual galaxy selection is done through cross matching the IFU fiber sky positions with galaxies selected from the SDSS. To collect the galaxies from the SDSS, we select all galaxies with $\sdssg <$ 22 mag within $3'$ of the BCG in each cluster. For each cluster we create catalogs of photometry in all SDSS bands (\sdssu\sdssg\sdssr\sdssi\sdssz), photometric redshift, and any spectroscopic redshift. The following SQL query accomplishes this task for MSJ010455.4+000336.3.
 \begin{singlespace}
 \begin{lstlisting}[language=SQL]
-SELECT TOP 1000
-	G.objID,
-	G.ra,
-	G.dec,
-	G.u,
-	G.Err_u,
-	G.g,
-	G.Err_g,
-	G.r,
-	G.Err_r,
-	G.i,
-	G.Err_i,
-	G.z,
-	G.Err_z,
-	Pz.z as Photoz,
-	Pz.zErr as Photoz_err,
-	SO.specObjID,
-	SO.ra as Spec_ra, 
-	SO.dec as Spec_dec,
-	SO.z as Specz,
-	SO.zErr as Specz_err
-FROM Galaxy as G
-JOIN dbo.fGetNearbyObjEq(16.2307083,0.06009167,3) as GN
-	ON G.objID = GN.objID
-LEFT JOIN Photoz as Pz ON G.objID = Pz.objID
-LEFT JOIN SpecObj as SO ON G.objID = SO.bestObjID
-Where 
-	G.g < 22 AND clean = 1 and (calibStatus_r & 1) != 0
+SELECT TOP 1000 G.objid, 
+                G.ra, 
+                G.dec, 
+                G.u, 
+                G.err_u, 
+                G.g, 
+                G.err_g, 
+                G.r, 
+                G.err_r, 
+                G.i, 
+                G.err_i, 
+                G.z, 
+                G.err_z, 
+                Pz.z    AS Photoz, 
+                Pz.zerr AS Photoz_err, 
+                SO.specobjid, 
+                SO.ra   AS Spec_ra, 
+                SO.dec  AS Spec_dec, 
+                SO.z    AS Specz, 
+                SO.zerr AS Specz_err 
+FROM   galaxy AS G 
+       JOIN dbo.Fgetnearbyobjeq(16.2307083,0.0600917,3) AS GN 
+         ON G.objid = GN.objid 
+       LEFT JOIN photoz AS Pz 
+              ON G.objid = Pz.objid 
+       LEFT JOIN specobj AS SO 
+              ON G.objid = SO.bestobjid 
+WHERE  G.g < 22 
+       AND clean = 1 
+       AND ( calibstatus_r & 1 ) != 0
 \end{lstlisting}
 \end{singlespace}
 
@@ -489,17 +491,17 @@ Our cluster masses estimates allow us to place promising constraints on the scat
 
 The ability of blind spectroscopy to constrain both the absolute cluster mass scale and, more importantly, the amount of scatter at fixed optical richness to values similar to other techniques is extremely positive for the potential of HETDEX. As cluster mass estimates become better constrained through the use of ML methods, we can expect to find even tighter constrains on the optical richness-cluster mass relation. This should lead to excellent calibration of other large-area sky surveys which produce optical photometry only. In addition, it will serve as an important, independent check on other observable-cluster mass relationships which are often noisy and subjet to large systematic uncertainties \citeeg{Sereno2015}.
 
-\section{Summary}\label{2sec:summary}
-We carry out a proof-of-concept study where we present integral field unit observations with the Mitchelle Spectrograph of ten intermediate redshift ($z=0.2-0.3$) galaxy clusters. We observe cluster member galaxies within $R\sim0.5$ Mpc of each cluster, and determine each cluster's membership based on the line-of-sight velocity of each galaxy. The mass of each cluster is determined through a traditional PL and through a machine learning based approach. We use these estimates of cluster mass to measure the absolute mass scale and intrinsic scatter of the optical richness-cluster mass relationship. The goal of this study is to investigate how a blind spectroscopic survey, such as the forthcoming Hobby Eberly Dark Energy Experiment (HETDEX), will be able to predict cluster masses, and then to use those masses to help calibrate other observable-cluster mass scaling relations.
-Our main results are as follows:
-\begin{itemize}
-	\item Using a PL scaling relation between the measured line-of-sight velocity dispersion and cluster mass, our low richness ($\lambda < 15$) sample of galaxy clusters have total inferred masses $\sim 0.5 \times 10^{14}$ \Msol\ ($M_{200c}$), and the high richness ($\lambda > 60$) cluster sample has total masses $(1.58-17.37) \times 10^{14}$ \Msol\ ($M_{200c}$). The majority of these estimate are consistent with other published total mass estimates which use a variety of estimation techniques. 
-	
-	\item The machine learning based approach of galaxy cluster mass estimation, while powerful, requires a deep understanding of both the machine learning algorithms available, training sets that accurately represent the properties of the data, and expert knowledge of the problem domain. To estimate the total masses of the galaxy clusters in our sample using machine learning methods, the native Buzzard catalogs do not provide a suitable training set due to the limited cosmological volume simulated at low redshift. For the redshift range of our cluster sample, the Buzzard catalogs lack similar high line-of-sight velocity dispersion and high mass clusters. This leads to a severe down-weighting of high mass galaxy clusters when the cluster redshift is included as a training feature. When this feature is removed, the machine learning estimated cluster masses improve but are still underestimated due to too few very high mass clusters being included in the simulated volume. A suite of training data drawn from a similarly sized cosmological volume is critical to the reliable prediction of cluster masses. When this is available, the machine learning predicted cluster masses show less bias and lower scatter compared to a traditional power law scaling relation based on velocity dispersion alone.
-
-	\item We fit a optical richness-cluster mass relation to the eight high richness ($\lambda > 60$) clusters. This gives:
-		\begin{equation}
-			\mathrm{Log}\,M_{200c}/\Msol=1.25\pm{0.78}\, \mathrm{Log}\,\lambda + 12.29\pm{1.68}.  
-		\end{equation}
-We are unable to place tight constraints on the overall estimate of the normalization due to the relatively few clusters included. We do estimate the scatter in cluster mass at fixed richness, $\sigma_{M|\lambda} \sim 0.25$. This estimate of scatter compares well with other recent studies of the richness-mass relation. This suggests that a blind spectroscopic survey such as HETDEX will be able to provide a crucial, independent measurement of this scatter, to a much high precision than is possible in this work. This bodes well for the success of HETDEX as not only a high redshift galaxy survey but as a important calibration tool for understanding the uncertainties associated with galaxy cluster mass estimates. 
-\end{itemize}
+% \section{Summary}\label{2sec:summary}
+% We carry out a proof-of-concept study where we present integral field unit observations with the Mitchelle Spectrograph of ten intermediate redshift ($z=0.2-0.3$) galaxy clusters. We observe cluster member galaxies within $R\sim0.5$ Mpc of each cluster, and determine each cluster's membership based on the line-of-sight velocity of each galaxy. The mass of each cluster is determined through a traditional PL and through a machine learning based approach. We use these estimates of cluster mass to measure the absolute mass scale and intrinsic scatter of the optical richness-cluster mass relationship. The goal of this study is to investigate how a blind spectroscopic survey, such as the forthcoming Hobby Eberly Dark Energy Experiment (HETDEX), will be able to predict cluster masses, and then to use those masses to help calibrate other observable-cluster mass scaling relations.
+% Our main results are as follows:
+% \begin{itemize}
+% 	\item Using a PL scaling relation between the measured line-of-sight velocity dispersion and cluster mass, our low richness ($\lambda < 15$) sample of galaxy clusters have total inferred masses $\sim 0.5 \times 10^{14}$ \Msol\ ($M_{200c}$), and the high richness ($\lambda > 60$) cluster sample has total masses $(1.58-17.37) \times 10^{14}$ \Msol\ ($M_{200c}$). The majority of these estimate are consistent with other published total mass estimates which use a variety of estimation techniques.
+%
+% 	\item The machine learning based approach of galaxy cluster mass estimation, while powerful, requires a deep understanding of both the machine learning algorithms available, training sets that accurately represent the properties of the data, and expert knowledge of the problem domain. To estimate the total masses of the galaxy clusters in our sample using machine learning methods, the native Buzzard catalogs do not provide a suitable training set due to the limited cosmological volume simulated at low redshift. For the redshift range of our cluster sample, the Buzzard catalogs lack similar high line-of-sight velocity dispersion and high mass clusters. This leads to a severe down-weighting of high mass galaxy clusters when the cluster redshift is included as a training feature. When this feature is removed, the machine learning estimated cluster masses improve but are still underestimated due to too few very high mass clusters being included in the simulated volume. A suite of training data drawn from a similarly sized cosmological volume is critical to the reliable prediction of cluster masses. When this is available, the machine learning predicted cluster masses show less bias and lower scatter compared to a traditional power law scaling relation based on velocity dispersion alone.
+%
+% 	\item We fit a optical richness-cluster mass relation to the eight high richness ($\lambda > 60$) clusters. This gives:
+% 		\begin{equation}
+% 			\mathrm{Log}\,M_{200c}/\Msol=1.25\pm{0.78}\, \mathrm{Log}\,\lambda + 12.29\pm{1.68}.
+% 		\end{equation}
+% We are unable to place tight constraints on the overall estimate of the normalization due to the relatively few clusters included. We do estimate the scatter in cluster mass at fixed richness, $\sigma_{M|\lambda} \sim 0.25$. This estimate of scatter compares well with other recent studies of the richness-mass relation. This suggests that a blind spectroscopic survey such as HETDEX will be able to provide a crucial, independent measurement of this scatter, to a much high precision than is possible in this work. This bodes well for the success of HETDEX as not only a high redshift galaxy survey but as a important calibration tool for understanding the uncertainties associated with galaxy cluster mass estimates.
+% \end{itemize}

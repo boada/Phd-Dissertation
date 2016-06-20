@@ -385,7 +385,48 @@ All simulations (including that used for Buzzard) use specific values for cosmol
 
 To test for this, we used the Millennium simulation as an alternative data set. The Millennium simulation uses a set of cosmological parameters that are substantially different from Buzzard. The Millennium simulation adopts a flat cosmological model based of the values derived from the Two-degree Field Galaxy Redshift Survey \citep{Colless2001} and the first year data of the \emph{Wilkinson Microwave Anisotropy Probe} (WMAP; \citealt{Spergel2003}): $\Omega_\Lambda = 0.75$, $\Omega_M = 0.25$, $\sigma_8 = 0.9$, $n_s = 1$ and $H_0= 73$ \kms \mpc. The clusters in Millennium provide a testing sample to understand how a training sample derived from Buzzard will impact the mass recovery on a wholly new dataset. 
 
-We repeat our analysis using cluster halo and galaxy catalogs from the Millennium simulation \citep{Springel2005a} obtained via querying the Millennium online database\footnote{http://gavo.mpa-garching.mpg.de/Millennium/} \citep{Lemson2006}. The Millennium simulation tracks $2160^3$ dark matter particles of $8.6\times 10^8 ~h^{-1}$ \Msol\ inside a comoving 500 $(h^{-1} \mathrm{Mpc})^3$ box from $z=127$ to 0. 
+We repeat our analysis using cluster halo and galaxy catalogs from the Millennium simulation \citep{Springel2005a} obtained via querying the Millennium online database\footnote{http://gavo.mpa-garching.mpg.de/Millennium/} \citep{Lemson2006}. The Millennium simulation tracks $2160^3$ dark matter particles of $8.6\times 10^8 ~h^{-1}$ \Msol\ inside a comoving 500 $(h^{-1} \mathrm{Mpc})^3$ box from $z=127$ to 0. The following SQL query selects the cluster halos:
+\begin{singlespace}
+\begin{lstlisting}[language=SQL]
+SELECT * 
+FROM   mfield..fof 
+WHERE  snapnum IN (SELECT snapnum 
+                   FROM   snapshots..mr 
+                   WHERE  z BETWEEN 0.01 AND 0.5) 
+       AND m_crit200 > 100 
+       AND random BETWEEN 0 AND 10000 
+\end{lstlisting}
+\end{singlespace}
+To select the corresponding galaxies, we use:
+\begin{singlespace}
+\begin{lstlisting}[language=SQL]
+SELECT sh.fofid, 
+       sh.subhaloid, 
+       g.galaxyid, 
+       g.x, 
+       g.y, 
+       g.z, 
+       g.redshift, 
+       g.velx, 
+       g.vely, 
+       g.velz, 
+       sdss.g_sdss, 
+       sdss.r_sdss, 
+       sdss.i_sdss 
+FROM   mfield..fofsubhalo AS sh 
+       INNER JOIN mpagalaxies..delucia2006a AS g 
+               ON sh.subhaloid = g.subhaloid 
+       INNER JOIN mpagalaxies..delucia2006a_sdss2mass AS sdss 
+               ON g.galaxyid = sdss.galaxyid 
+WHERE  sh.fofid IN (SELECT fofid 
+                FROM   mfield..fof 
+                WHERE  snapnum IN (SELECT snapnum 
+                               FROM   snapshots..mr 
+                               WHERE  z BETWEEN 0.01 AND 0.5) 
+                       AND m_crit200 > 1000 
+                       AND random BETWEEN 0 AND 10000) 
+\end{lstlisting}
+\end{singlespace}
 
 We select 4,806 clusters, comprised of 623,663 galaxies, at $0.02 < z < 0.5$ and $M > 10^{13}$ \Msol, and apply the same data processing as with the Buzzard galaxies. We begin by assigning each galaxy an \hbox{[\ion{O}{II}]} flux value (see Section \ref{sec: oii luminosity}), and ``observe'' each galaxy using realistic (see Section \ref{sec: observations}) observational limits. After recovering 3750 clusters which have at least five galaxies observed, we calculate the LOSVD of each cluster as in Section \ref{sec: LOSVD}. 
 
@@ -420,7 +461,7 @@ where $q$ is the degeneracy exponent between $\sigma_8h^{-1}$ and $\Omega_m$, $\
 
 For a survey such as HETDEX, we can estimate the constraints on $\sigma_8h^{-1}$ using Equation \ref{eq:sigElapprox}. If we consider clusters with masses above $10^{14}$ \Msol\ and with Perfect knowledge observations, the lowest mass scale uncertainty (given in Table~\ref{tbl:mass scatter}) is $\Delta_{log_{10}}M \sim 0.075$ dex or about 20\%. This gives a uncertainty on $\sigma_8h^{-1}$ of 7\%. For clusters above $10^{14}$ \Msol, Survey observations constrain the masses to about 51\% which, in turn, constrains $\sigma_8h^{-1}$ to 20\%.
 
-Because of the simplifying assumptions, and the superior quality of the data (no contamination, signal-to-noise issues, etc.), realistic expectations for HETDEX is to directly constrain $\sigma_8h^{-1}$ is not yet competitive with other methods (\eg, CMB, WL, X-ray). For example, \cite{deHaan2016} constrain $\sigma_8h^{-1}$ to $\sim5$\% using a sample of 337 SZE detected clusters from the SPT-SZE survey. For the $\sim1500$ clusters detected with Survey observations to constrain $\sigma_8h^{-1}$ and to be dominated by cluster statistics alone ($\Delta \ln N \sim N^{-1/2}$), the absolute cluster calibration would need to be better than 2.5\%. For a fully Targeted survey, about 14,000 clusters, this cluster mass calibration uncertainty reduces to $>1\%$. So while, the contraints produced by HETDEX will be larger than some other studies, the type of data provided by HETDEX will enable an independent calibration from other cluster mass measurements. This will provide important systematics checks on other studies and will ultimately improve the measurements of $\sigma_8h^{-1}$ .
+Because of the simplifying assumptions, and the superior quality of the data (no contamination, signal-to-noise issues, etc.), realistic expectations for HETDEX is to directly constrain $\sigma_8h^{-1}$ is not yet competitive with other methods (\eg, CMB, WL, X-ray). For example, \cite{DeHaan2016} constrain $\sigma_8h^{-1}$ to $\sim5$\% using a sample of 337 SZE detected clusters from the SPT-SZE survey. For the $\sim1500$ clusters detected with Survey observations to constrain $\sigma_8h^{-1}$ and to be dominated by cluster statistics alone ($\Delta \ln N \sim N^{-1/2}$), the absolute cluster calibration would need to be better than 2.5\%. For a fully Targeted survey, about 14,000 clusters, this cluster mass calibration uncertainty reduces to $>1\%$. So while, the contraints produced by HETDEX will be larger than some other studies, the type of data provided by HETDEX will enable an independent calibration from other cluster mass measurements. This will provide important systematics checks on other studies and will ultimately improve the measurements of $\sigma_8h^{-1}$ .
 
 \subsection{Scale and Scatter of the Richness-Cluster Mass Relation}
 Large-scale optical surveys (\eg, DES and LSST) expect to detect hundreds of thousands of galaxy clusters at $z < 1$. Because they produce photometry only, a major challenge for these surveys is relating a cluster observable to the total DM mass. One promising cluster mass estimator is the optical richness \citeeg{Abell1958}. Specifically, here, we use $\lambda$, the weighted number of galaxies within a scale aperture \citeeg{Rozo2011} as calculated by the redMaPPer algorithm \citep{Rykoff2012}. Previous works \citeeg{Rozo2010} show that the richness correlates strongly with cluster mass on the average, but the absolute mass scale of the optical richness mass estimator and the scatter in cluster mass at fixed optical richness are imprecisely known \citep{Rykoff2012}. These systematics remain the major source of uncertainty in deriving cosmological constraints from cluster abundances and must be measured using independent methods to realize the full potential of these types of surveys.
@@ -472,18 +513,18 @@ We find that we are able to accurately recover an average intrinsic scatter of $
 
 For the richness range $10 \leq \lambda < 130$ the intrinsic scatter in between the $\mathrm{M_{pred,corr}}$ predicted cluster masses and the true cluster mass (the basis of our richnesses) is $\sim0.15$ dex for Targeted observations and $\sim0.20$ dex for Survey observations. This forms an effective floor on the amount of scatter we are able to recover from our fitting process. As we reduce the overall scatter in our cluster mass recovery, this floor will lower. We underestimate the scatter in high intrinsic scatter relations because any residual bias remaining in the predicted clusters masses after correction reduces the observed scatter. Because the bias subtraction when creating $\mathrm{M_{pred,corr}}$ subtracts the mean bias, we are left with a small amount of residual bias, lowering the measured scatter for high scatter relationships.
 
-\section{Summary}\label{sec:summary}
-Here, we present detailed simulations of the upcoming HETDEX survey's applicability to the detection and total mass measurement of galaxy clusters. Using mock galaxy catalogs and HETDEX-like observational strategies and limits, we observe our simulated sky, estimate the number of clusters observed, and derive basic cluster parameters, redshift, line-of-sight velocity dispersion (LOSVD). Using a traditional power law-based, velocity dispersion, scaling relation along with more advanced probability and machine learning (ML) techniques, we estimate each cluster's total mass. We discuss each cluster mass estimate's precision, and discuss HETDEX's ability to constrain the cosmological parameter $\sigma_8 h^{-1}$ based on those predicted cluster masses. In addition, we comment on how HETDEX may improve current and future photometric large-area sky surveys' cluster mass estimates derived from optical richness.
-
-Our main conclusions are the following:
-\begin{enumerate}
-	\item After considering HETDEX's observational limits, we find 14,189 clusters with at least five cluster members in the HETDEX survey volume. Of those, 1,760 clusters are detected with HETDEX-like survey observations. The number of cluster members recovered with Survey observations is almost exactly 4.5 times fewer than a fully Targeted survey, across both a wide range of redshifts and cluster masses.
-	
-	\item We find a traditional power law conversion from LOSVD to cluster mass predicts the true cluster mass with little bias or scatter for clusters Log M/\Msol\ $=14.5$ and above. Below this mass the bias and scatter rapidly increases. In contrast, the probability based and ML based cluster mass estimators are able to predict cluster mass with similar or smaller scatter across all cluster masses. The scatter further decreases when the probability based and ML estimators are combined with other cluster observables besides the LOSVD. For HETDEX-like observations and clusters with $13 < \mathrm{Log}\, M/\Msol <14.5$, we find the $\mathrm{ML}_{\sigma, z, N_{gal}}$ method results in the smallest scatter. Below Log M/\Msol\ $=13$ no method with Survey observations gives a bias of less than 50\%. For the highest mass clusters the power law method gives the lowest bias and scatter. In short, no single method is superior in all regards. The technique should be chosen to minimize the desired systematic, but we find $\mathrm{ML}_{\sigma, z, N_{gal}}$ provides the best performance across the large range of cluster masses, and observation strategies.
-	
-	\item In general, we find that the measured scatter of cluster masses decreases when considering Targeted versus Survey observations. Clusters at all masses can benefit from targeted follow-up observations, although the accuracy gain will be smaller than can be achieved from cluster mass prediction method changes. Targeted follow-up observations reduces the measured scatter by $\sim10\%$ when comparing like recovery methods.
-	
-	\item The $\sim51\%$ cluster mass accuracy of Survey observations places approximately a 20\% constraint on $\sigma_8 h^{-1}$. This can be tightened to approximately 12\% with follow-up targeted observations. Most importantly, the observations from HETDEX will provide systematics checks on other studies, ultimately improving all future measurements of $\sigma_8 h^{-1}$
-	
-	\item HETDEX will be able to place important, independent constraints on the amount of scatter in the optical richness-mass relationship. It will to a less extent constrain the overall normalization of the relation. This should provide an important tool in the calibration of large-area sky surveys which rely on photometric data only to estimate cluster masses.
-\end{enumerate}
+% \section{Summary}\label{sec:summary}
+% Here, we present detailed simulations of the upcoming HETDEX survey's applicability to the detection and total mass measurement of galaxy clusters. Using mock galaxy catalogs and HETDEX-like observational strategies and limits, we observe our simulated sky, estimate the number of clusters observed, and derive basic cluster parameters, redshift, line-of-sight velocity dispersion (LOSVD). Using a traditional power law-based, velocity dispersion, scaling relation along with more advanced probability and machine learning (ML) techniques, we estimate each cluster's total mass. We discuss each cluster mass estimate's precision, and discuss HETDEX's ability to constrain the cosmological parameter $\sigma_8 h^{-1}$ based on those predicted cluster masses. In addition, we comment on how HETDEX may improve current and future photometric large-area sky surveys' cluster mass estimates derived from optical richness.
+%
+% Our main conclusions are the following:
+% \begin{enumerate}
+% 	\item After considering HETDEX's observational limits, we find 14,189 clusters with at least five cluster members in the HETDEX survey volume. Of those, 1,760 clusters are detected with HETDEX-like survey observations. The number of cluster members recovered with Survey observations is almost exactly 4.5 times fewer than a fully Targeted survey, across both a wide range of redshifts and cluster masses.
+%
+% 	\item We find a traditional power law conversion from LOSVD to cluster mass predicts the true cluster mass with little bias or scatter for clusters Log M/\Msol\ $=14.5$ and above. Below this mass the bias and scatter rapidly increases. In contrast, the probability based and ML based cluster mass estimators are able to predict cluster mass with similar or smaller scatter across all cluster masses. The scatter further decreases when the probability based and ML estimators are combined with other cluster observables besides the LOSVD. For HETDEX-like observations and clusters with $13 < \mathrm{Log}\, M/\Msol <14.5$, we find the $\mathrm{ML}_{\sigma, z, N_{gal}}$ method results in the smallest scatter. Below Log M/\Msol\ $=13$ no method with Survey observations gives a bias of less than 50\%. For the highest mass clusters the power law method gives the lowest bias and scatter. In short, no single method is superior in all regards. The technique should be chosen to minimize the desired systematic, but we find $\mathrm{ML}_{\sigma, z, N_{gal}}$ provides the best performance across the large range of cluster masses, and observation strategies.
+%
+% 	\item In general, we find that the measured scatter of cluster masses decreases when considering Targeted versus Survey observations. Clusters at all masses can benefit from targeted follow-up observations, although the accuracy gain will be smaller than can be achieved from cluster mass prediction method changes. Targeted follow-up observations reduces the measured scatter by $\sim10\%$ when comparing like recovery methods.
+%
+% 	\item The $\sim51\%$ cluster mass accuracy of Survey observations places approximately a 20\% constraint on $\sigma_8 h^{-1}$. This can be tightened to approximately 12\% with follow-up targeted observations. Most importantly, the observations from HETDEX will provide systematics checks on other studies, ultimately improving all future measurements of $\sigma_8 h^{-1}$
+%
+% 	\item HETDEX will be able to place important, independent constraints on the amount of scatter in the optical richness-mass relationship. It will to a less extent constrain the overall normalization of the relation. This should provide an important tool in the calibration of large-area sky surveys which rely on photometric data only to estimate cluster masses.
+% \end{enumerate}
