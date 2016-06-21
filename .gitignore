@@ -1,17 +1,32 @@
-# ignore everything
-/*
+*.aux
+*.glo
+*.idx
+*.log
+*.toc
+*.ist
+*.acn
+*.acr
+*.alg
+*.bbl
+*.blg
+*.dvi
+*.glg
+*.gls
+*.ilg
+*.ind
+*.lof
+*.lot
+*.maf
+*.mtc
+*.mtc1
+*.out
+*.synctex.gz
+
+# Specific folders
+/comments/*
 /proposal/*
-/thesisTemplate/*
+*.fdb_latexmk
 
-# but not these files
-!.gitignore
-!**.tex
-!*.pdf
-!proposal/*.tex
-!proposal/*.pdf
-!proposal/figures/*.eps
+*.lb
 
-# not the thesis template
-!thesisTemplate/*.tex
-!thesisTemplate/*.sty
-!thesisTemplate/*.pdf
+*.fls
