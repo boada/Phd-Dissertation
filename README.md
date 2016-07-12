@@ -4,8 +4,8 @@
 
 This work is comprised of two individual papers.
 
-* [Paper One](https://github.com/boada/vppaper)
-* [Paper two](https://github.com/boada/hetdex_paper)
+* [Paper One](https://github.com/boada/hetdex_paper)
+* [Paper Two](https://github.com/boada/vppaper)
 
 Please use the following references if this work is used is another academic publication. If it is unclear how to properly cite this work, contact me and I will help you. 
 
